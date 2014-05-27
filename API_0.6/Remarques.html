@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Remarques</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Documentation API TISSÉO">
+    <link rel="canonical" href="http://localhost:4000/Remarques.html">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+
+
+    <body>
+
+    <div class="page-content">
+      <div class="wrap">
+      <p><a href="Home.html">Home</a>
+# Remarques générales</p>
+
+<p>1.1 <a href="#À-propos-de-lapi-tisséo">À propos de l’API Tisséo</a></p>
+
+<p>1.2 <a href="#versions-et-révisions">Versions et révisions</a>
+* <a href="#nouveautés-v06">Nouveautés V0.6</a></p>
+
+<p>1.3 <a href="#mode-de-mise-en-œuvre-et-formats">Mode de mise en œuvre et formats</a></p>
+
+<p>1.4 <a href="#cles-dacces">Clés d’accès</a></p>
+
+<ul>
+  <li><a href="#comment-obtenir-une-clé-">Comment obtenir une clé ?</a></li>
+</ul>
+
+<p>1.5 <a href="#coherence-des-id-avec-les-fichiers-opendata">Cohérence des id avec les fichiers OPENDATA</a></p>
+
+<p>1.6 <a href="#perimetre-des-donnees">Périmètres des données</a></p>
+
+<p>1.7 <a href="#credit-openstreetmap">Crédit OPENSTREETMAP</a></p>
+
+<p>1.8 <a href="#licence">Licence</a></p>
+
+<h1 id="propos-de-lapi-tisso">À propos de l’API Tisséo</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Référence</th>
+      <th style="text-align: left"><strong>NT_OPENDATA_API_0.6</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>Date de création</strong></td>
+      <td style="text-align: left"><strong>mercredi 09 mai 2012</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Date de dernière mise à jour</strong></td>
+      <td style="text-align: left"><strong>vendredi 19 Juillet 2013</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Version</strong></td>
+      <td style="text-align: left"><strong>0.6</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="nouveauts-v06">Nouveautés V0.6</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Modification ou Ajout</th>
+      <th style="text-align: left">Fonction(s) concernées</th>
+      <th style="text-align: left">Détail de la modification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Création</td>
+      <td style="text-align: left">linesDisruptedList</td>
+      <td style="text-align: left">Correction du nom</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="versions-et-rvisions">Versions et révisions</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Version</th>
+      <th style="text-align: left">Date</th>
+      <th style="text-align: left">Rédacteur</th>
+      <th style="text-align: left">Objet de la modification</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">V0.6</td>
+      <td style="text-align: left">19/07/2013</td>
+      <td style="text-align: left">Tisséo</td>
+      <td style="text-align: left">Correction      du      nom        du  service “ linesDisruptedList “</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">V0.5</td>
+      <td style="text-align: left">02/07/2013</td>
+      <td style="text-align: left">Tisséo</td>
+      <td style="text-align: left">Ajout des WebService de messages : “ messagesList  et “ linesDisrupted “</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">V0.4</td>
+      <td style="text-align: left">04/02/2013</td>
+      <td style="text-align: left">Tisséo</td>
+      <td style="text-align: left">Précisions sur les arguments de place list Ajout de filtre sur stopPointsId format de date et lien fichiers Trident et GTFS</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">V0.3</td>
+      <td style="text-align: left">02/10/2012</td>
+      <td style="text-align: left">Tisséo</td>
+      <td style="text-align: left">Ajout de la couleur de la ligne dans departureBord et de la date d’expiration</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">V0.2</td>
+      <td style="text-align: left">07/08/2012</td>
+      <td style="text-align: left">Tisséo</td>
+      <td style="text-align: left">Modifications XSD, et mise en places de nouvelles fonctionnalités dans chaque résultat.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">V0.1</td>
+      <td style="text-align: left">09/05/2012</td>
+      <td style="text-align: left">Tisséo</td>
+      <td style="text-align: left">Initialisation du document</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="mode-de-mise-en-uvre-et-formats">Mode de mise en œuvre et formats</h1>
+<p>Les API mises à disposition permettent d’interroger les données du référentiel transport de Tisséo.</p>
+
+<p>Elles sont accessibles par l’appel de liens de type :  <strong><code>http://pt.data.tisseo.fr/&lt;Nom de l’api&gt;?&lt;paramètres&gt;&amp;key=&lt;votre_clé&gt;</code></strong></p>
+
+<p>Les API fournies sont :</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">API</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>placesList</strong></td>
+      <td style="text-align: left">recherche de lieux</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>linesList</strong></td>
+      <td style="text-align: left">liste des lignes</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>stopAreasList</strong></td>
+      <td style="text-align: left">liste des zones d’arrêts</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>stopPointsList</strong></td>
+      <td style="text-align: left">liste des poteaux d’arrêt</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>departureBoard</strong></td>
+      <td style="text-align: left">horaires à un arrêt</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>messagesList</strong></td>
+      <td style="text-align: left">liste des messages d’information</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>linesDisruptedList</strong></td>
+      <td style="text-align: left">liste des lignes perturbées</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Elles fournissent dans la mesure du possible une réponse selon 2 formats : </p>
+
+<p><strong>XML</strong> (défaut) et <strong>JSON</strong>.</p>
+
+<h1 id="cles-dacces">CLES D’ACCES</h1>
+<p>L’utilisation des API est soumise à l’utilisation d’une clé attribuée à chaque demandeur. 
+Cette clé doit être transmise lors de chaque appel.</p>
+
+<h2 id="comment-obtenir-une-cl-">Comment obtenir une clé ?</h2>
+<p>Pour obtenir une clé, il est nécessaire d’en faire la demande par mail 
+ à opendata@tisseo.fr en remplissant les champs suivants:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Champs</th>
+      <th style="text-align: left">Détails</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>vos références</strong></td>
+      <td style="text-align: left">nom, prénom et/ou entreprise</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>votre mail</strong></td>
+      <td style="text-align: left">(indispensable pour vous communiquer les changements et évolutions de l’API)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>vos utilisations prévues</strong></td>
+      <td style="text-align: left">(nom de projet ? objectifs ?)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="coherence-des-id-avec-les-fichiers-opendata">COHERENCE DES ID AVEC LES FICHIERS OPENDATA</h1>
+<p>En plus de l’<strong>API temps réel</strong>, Tisséo fourni des fichiers descriptifs de son offre transport sur le portail OpenData de Toulouse Métropôle.</p>
+
+<p>Ces fichiers sont disponibles aux formats standard Trident et GTFS sous la même licence ODBL [[LICENSE]]
+Voici les URL pour récupérer ces fichiers :</p>
+
+<ul>
+  <li>Format GTFS :
+   <a href="http://data.toulouse-metropole.fr/les-donnees/-/opendata/card/16271-reseau-tisseo-metro-bus-tram-gtfs">http://data.toulouse-metropole.fr/les-donnees/-/opendata/card/16271-reseau-tisseo-metro-bus-tram-gtfs</a></li>
+  <li>Format Trident :
+   <a href="http://data.toulouse-metropole.fr/les-donnees/-/opendata/card/14114-reseau-tisseo-metro-bus-tram-">http://data.toulouse-metropole.fr/les-donnees/-/opendata/card/14114-reseau-tisseo-metro-bus-tram-</a></li>
+</ul>
+
+<p>Les fichiers sont mis à jour de manière automatique tous les lundis.</p>
+
+<p>Afin d’étendre les possibilités d’utilisation de l’API, les identifiants GTFS et Trident sont maintenant identiques à ceux de l’API.</p>
+
+<p>Ainsi par exemple, vous pourrez récupérer les tracés cartographiques des lignes dans le fichier GTFS et faire un affichage cartographique des lignes avec les informations temps réel de l’API.</p>
+
+<p>Autre exemple, vous pouvez charger en cache dans vos applications toutes les horaires théorique via les fichiers et faire une correction temps réel de ces horaires avec l’API.</p>
+
+<h1 id="perimetre-des-donnees">PERIMETRE DES DONNEES</h1>
+<ul>
+  <li><strong>Périmètre géographique :</strong></li>
+</ul>
+
+<p>Les données de l’API couvrent le perimètre de l’aire urbaine dans ça définition INSEE 2010 ainsi que la haute garonne.</p>
+
+<ul>
+  <li><strong>Périmètre temporel :</strong></li>
+</ul>
+
+<p>Les données Transport Tisséo sont mises à jour quotidiennement voir en temps réel (horaires de passages bus et tram équipés de GPS).</p>
+
+<ul>
+  <li><strong>L’Offre prévisionnelle :</strong></li>
+</ul>
+
+<p>L’horizon temporel des données est de 30 jours, mais nous préconisons un usage à 15 jours car l’offre à 30 jours peut changer avant application.</p>
+
+<ul>
+  <li><strong>Date de péremption de la donnée :</strong></li>
+</ul>
+
+<p>Toutes les réponses de l’API contiennent un paramètre <strong>« expirationDate »</strong> qui indique jusqu’à quand l’information récupérée reste valable.</p>
+
+<p>Il est fortement recommandé d’utiliser ce paramètre pour gérer la durée du cache de vos applications.</p>
+
+<ul>
+  <li><strong>Réseau de transport disponibles :</strong></li>
+</ul>
+
+<p>A l’ouverture de l’API seul le réseau Tisséo sera disponible. Cependant, des paramètres « network » ont étés ajoutés en prévision d’une ouverture à d’autres réseau.</p>
+
+<h1 id="credit-openstreetmap">CREDIT OPENSTREETMAP</h1>
+<p>Les informations routières (noms de rues, numéros de rues, …) fournies par <strong>l’API TISSEO</strong> </p>
+
+<p>proviennent du projet OpenStreetMap [[http://www.openstreetmap.org/]]</p>
+
+<p>Certaines rues, ou certains numéros de rues ne sont pas encore connus <strong>d’OpenStreetMap</strong> et seront donc inaccessibles via notre API.</p>
+
+<p>C’est pourquoi <strong>nous encourageons vivement les utilisateurs de l’API à contribuer à l’amélioration des données OpenStreetMap</strong>.</p>
+
+<p>Nous réaliserons des mises à jour régulières qui contiendront vos contributions.</p>
+
+<p>Techniquement, nous n’importons les numéros de rues que sur des nodes (addr:housenumber) et les nodes en relation à une rue (associatedStreet) et non pas sur les buildings.</p>
+
+<h1 id="licence">LICENCE</h1>
+<p>Les données accessibles via notre API </p>
+
+<p>sont sous licence ODBL :</p>
+
+<p><a href="https://data.grandtoulouse.fr/la-licence">https://data.grandtoulouse.fr/la-licence</a></p>
+
+
+      </div>
+    </div>
+    
+
+
+    </body>
+</html>

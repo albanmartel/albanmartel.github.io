@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Poteaux Arrets</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Documentation API TISSÉO">
+    <link rel="canonical" href="http://localhost:4000/Poteaux-arrets.html">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+
+
+    <body>
+
+    <div class="page-content">
+      <div class="wrap">
+      <h1 id="liste-des-poteaux-darrts">Liste des poteaux d’arrêts</h1>
+<p>## Principe
+Cette API permet d’obtenir des listes d’arrêts.
+L’ensemble des arrêts d’un réseau, d’une zone géographique, ou d’une zone d’arrêt.
+## Mode d’appel et Paramètres
+URL : <code>http://pt.data.tisseo.fr/stopPointsList?...paramètres...</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Nom</th>
+      <th style="text-align: left">Description du paramètre</th>
+      <th style="text-align: left">Requis ?</th>
+      <th style="text-align: left">Valeur défaut</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>key</strong></td>
+      <td style="text-align: left">Valeur de la clef</td>
+      <td style="text-align: left">Oui</td>
+      <td style="text-align: left">aucune</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>network</strong></td>
+      <td style="text-align: left">Opérateur de transport</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">Tisséo</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>srid</strong></td>
+      <td style="text-align: left">Numéro SRID du référentiel de projection spatial. Voir http://en.wikipedia.org/wiki/SRID</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">4326</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>bbox</strong></td>
+      <td style="text-align: left">Filtre pour les arrêts dont les données GPS sont comprises dans ce bounding box</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>sortByDistance</strong></td>
+      <td style="text-align: left">Tri résultats selon la distance au centre de la bounding box (0,1)</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>number</strong></td>
+      <td style="text-align: left">Filtre sur le nb maxi de résultats à retourner</td>
+      <td style="text-align: left">Retourne les résultats</td>
+      <td style="text-align: left">tous</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>format</strong></td>
+      <td style="text-align: left">Désigne le format de sortie (xml/json)</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">xml</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>displayDestinations</strong></td>
+      <td style="text-align: left">Retourne en plus les destinations de chaque poteau (0/1)</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">0 : Pas de destinations</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>displayLines</strong></td>
+      <td style="text-align: left">Retourne en plus les lignes de chaque destinations (0/1)</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">0 : Pas de lignes</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>displayCoordXY</strong></td>
+      <td style="text-align: left">Retourne en plus les coordonnées de chaque arrêt (poteau d’arrêt et arrêt logique) (0/1)</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">0 : Pas de coordonnées</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>lineId</strong></td>
+      <td style="text-align: left">Filtre sur les arrêts de la ligne uniquement.</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>stopAreaId</strong></td>
+      <td style="text-align: left">Filtre sur la zone d’arrêt uniquement definie</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="rgles-de-gestion">Règles de gestion</h2>
+<ul>
+  <li><strong>lineId</strong> est l’id récupéré par la requête de liste des lignes.</li>
+  <li>Si <strong>lineId</strong> est passé en plus avec <strong>terminusId</strong>, dans ce cas le filtre porte sur tous les itinéraires de
+cette ligne ayant ce <strong>terminusId</strong>.</li>
+  <li>Le <strong>srid</strong> permet à la fois de modifier le système de coordonnées des XY des zones d’arrêts et de
+préciser dans quel référentiel la <strong>bbox</strong> est exprimée.</li>
+  <li>
+    <p>Format attendu pour une <strong>bbox</strong>: </p>
+
+    <p>longitude pt A, latitude pt A, longitude point B, latitude point B, </p>
+
+    <p>où A et B sont positionnés comme sur le schéma suivant :
+<img src="images/schema_carto.png" alt="schéma" />
+Représentation d’une <strong>bbox</strong> sur un fond cartographique</p>
+
+    <p><strong>Exemple en WGS84 (SRID 4326)</strong>
+le système GPS et encodé en URL : <em>bbox=1.4338121%2C43.5944292%2C1.4538121%2C43.6144292</em></p>
+  </li>
+  <li>
+    <p>Les différentes options et filtres peuvent être combinés ensemble :</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: left">Paramètre</th>
+          <th style="text-align: left">Valeurs possibles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: left"><strong>network</strong></td>
+          <td style="text-align: left">Tisséo, ALL</td>
+        </tr>
+        <tr>
+          <td style="text-align: left"><strong>srid</strong></td>
+          <td style="text-align: left">4326, 900913, …</td>
+        </tr>
+        <tr>
+          <td style="text-align: left"><strong>format</strong></td>
+          <td style="text-align: left">json, xml</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="rponse">Réponse</h2>
+<p>###   1. Requête stopPointsList XML
+<code>xml
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;physicalStops expirationDate="2012-09-21 3:45" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://pt.data.tisseo.fr/xsd/StopPointsList.xsd"&gt;
+  &lt;physicalStop id="3377699720884578" name="Armentières" x="531237.00859954499" y="1841469.9583295723"&gt;
+    &lt;operatorCodes&gt;
+      &lt;operatorCode value="201" network="Tisséo"/&gt;
+    &lt;/operatorCodes&gt;
+    &lt;destination id="1970324837186881" cityName="LABEGE" name="Centre commercial"&gt;
+      &lt;line id="11821949022345002" color="(86,63,0)" name="Université Paul Sabatier / St-Orens Lycée" shortName="108" network="Tisséo" /&gt;
+    &lt;/destination&gt;
+    &lt;destination id="1970324837185279" cityName="SAINT-ORENS-DE-GAMEVILLE" name="St-Orens Lycée"&gt;
+      &lt;line id="11821949022345002" color="(86,63,0)" name="Université Paul Sabatier / St-Orens Lycée" shortName="108" network="Tisséo" /&gt;
+    &lt;/destination&gt;
+    &lt;destination id="1970324837185012" cityName="TOULOUSE" name="Université Paul Sabatier"&gt;
+      &lt;line id="11821949022345002" color="(86,63,0)" name="Université Paul Sabatier / St-Orens Lycée" shortName="108" network="Tisséo" /&gt;
+    &lt;/destination&gt;
+    &lt;stopArea id="1970324837186871" cityName="TOULOUSE" name="Armentières" x="531244.993561" y="1841463.974601"/&gt;
+  &lt;/physicalStop&gt;
+  &lt;physicalStop id="3377699722914784" name="Barrière de Paris" x="527098.98256426631" y="1847622.9563400263"&gt;
+    &lt;operatorCodes&gt;
+      &lt;operatorCode value="514" network="Tisséo"/&gt;
+    &lt;/operatorCodes&gt;
+    &lt;destination id="1970324838834159" cityName="TOULOUSE" name="Glacière Sesquières"&gt;
+      &lt;line id="11821949023707108" color="(38,206,255)" name="Barrière de Paris / Glacière Sesquières" shortName="110" network="Tisséo" /&gt;
+    &lt;/destination&gt;
+    &lt;stopArea id="1970324837185046" cityName="TOULOUSE" name="Barrière de Paris" x="527035.976081" y="1847601.499820"/&gt;
+  &lt;/physicalStop&gt;
+&lt;/physicalStops&gt;
+</code>
+### 1. Requête stopPointsList JSON
+<code>json
+{
+  "expirationDate": "2012-09-21 3:45",
+  "physicalStops": {
+    "physicalStop": [
+      {
+        "id": "3377699720884578",
+        "name": "Armentières",
+        "x": "531237.00859954499",
+        "y": "1841469.9583295723",
+        "operatorCodes": [
+          {
+            "operatorCode": {
+              "value": "201",
+              "network": "Tisséo"
+            }
+          }
+        ],
+        "destinations": [
+          {
+            "cityName": "LABEGE",
+            "id": "1970324837186881",
+            "name": "Centre commercial",
+            "line": [
+              {
+                "color": "(86,63,0)",
+                "id": "11821949022345002",
+                "name": "Université Paul Sabatier / St-Orens Lycée",
+                "shortName": "108",
+                "network": "Tisséo"
+              },
+              {}
+            ]
+          },
+          {
+            "cityName": "SAINT-ORENS-DE-GAMEVILLE",
+            "id": "1970324837185279",
+            "name": "St-Orens Lycée",
+            "line": [
+              {
+                "color": "(86,63,0)",
+                "id": "11821949022345002",
+                "name": "Université Paul Sabatier / St-Orens Lycée",
+                "shortName": "108",
+                "network": "Tisséo"
+              },
+              {}
+            ]
+          },
+          {
+            "cityName": "TOULOUSE",
+            "id": "1970324837185012",
+            "name": "Université Paul Sabatier",
+            "line": [
+              {
+                "color": "(86,63,0)",
+                "id": "11821949022345002",
+                "name": "Université Paul Sabatier / St-Orens Lycée",
+                "shortName": "108",
+                "network": "Tisséo"
+              },
+              {}
+            ]
+          },
+          {}
+        ],
+        "stopArea": {
+          "cityName": "TOULOUSE",
+          "id": "1970324837186871",
+          "name": "Armentières",
+          "x": "531244.993561",
+          "y": "1841463.974601"
+        }
+      },
+      {
+        "id": "3377699722914784",
+        "name": "Barrière de Paris",
+        "x": "527098.98256426631",
+        "y": "1847622.9563400263",
+        "operatorCodes": [
+          {
+            "operatorCode": {
+              "value": "514",
+              "network": "Tisséo"
+            }
+          }
+        ],
+        "destinations": [
+          {
+            "cityName": "TOULOUSE",
+            "id": "1970324838834159",
+            "name": "Glacière Sesquières",
+            "line": [
+              {
+                "color": "(38,206,255)",
+                "id": "11821949023707108",
+                "name": "Barrière de Paris / Glacière Sesquières",
+                "shortName": "110",
+                "network": "Tisséo"
+              },
+              {}
+            ]
+          },
+          {}
+        ],
+        "stopArea": {
+          "cityName": "TOULOUSE",
+          "id": "1970324837185046",
+          "name": "Barrière de Paris",
+          "x": "527035.976081",
+          "y": "1847601.499820"
+        }
+      },
+      {}
+    ]
+  }
+}
+</code>
+## Exemples d’utilisation
+Exemples de requêtes :
+1. Liste de tous les poteaux du réseau tisséo au format XML</p>
+
+<p><code>http://pt.data.tisseo.fr/stopPointsList?key={your_key}</code></p>
+
+<ol>
+  <li>Liste de tous les poteaux de ce stopAreaId du réseau tisséo au format XML</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/stopPointsList?&amp;key={your_key}&amp;stopAreaId=1970329131943016&amp;network=Tisséo</code></p>
+
+<ol>
+  <li>Liste de tous les poteaux du réseau tisséo au format JSON</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/stopPointsList?&amp;key={your_key}&amp;format=json</code></p>
+
+<ol>
+  <li>Liste de tous les poteau d’arrêts d’un arrêt commercial où passe une ligne donnée</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/stopPointsList?&amp;key={your_key}&amp;stopAreaId=1970324837184808&amp;displayLines=1&amp;lineId=11821949021891652</code></p>
+
+<ol>
+  <li>Liste de tous les poteaux et les destinations du réseau tisséo au format JSON </li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/stopPointsList?&amp;key={your_key}&amp;format=json&amp;displayDestinations=1</code></p>
+
+<ol>
+  <li>Liste de tous les poteaux et des destinations dans une bounding box pour un <strong>srid</strong> donnée du réseau tisséo au format JSON.</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/stopPointsList?&amp;key={your_key}&amp;format=json&amp;displayDestinations=1&amp;srid=900913&amp;bbox=158019.352839%2C5403458.895141%2C163077.902207%2C5404988.302709</code></p>
+
+      </div>
+    </div>
+    
+
+
+    </body>
+</html>

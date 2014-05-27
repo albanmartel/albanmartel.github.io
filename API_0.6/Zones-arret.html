@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Zones Arret</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Documentation API TISSÉO">
+    <link rel="canonical" href="http://localhost:4000/Zones-arret.html">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+
+
+    <body>
+
+    <div class="page-content">
+      <div class="wrap">
+      <h2 id="principe">Principe</h2>
+<p>Cette API permet d’obtenir des listes de zones d’arrêts.
+L’ensemble des zones d’arrêts d’un réseau, d’une zone géographique, ou d’une ligne.</p>
+
+<h2 id="mode-dappel-et-paramtres">Mode d’appel et Paramètres</h2>
+
+<p>URL : <code>http://pt.data.tisseo.fr/stopAreasList?...paramètres...</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Nom</th>
+      <th style="text-align: left">Description du paramètre</th>
+      <th style="text-align: left">Requis ?</th>
+      <th style="text-align: left">Valeur défaut</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>key</strong></td>
+      <td style="text-align: left">Valeur de la clef</td>
+      <td style="text-align: left">Oui</td>
+      <td style="text-align: left">aucune</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>network</strong></td>
+      <td style="text-align: left">Opérateur de transport</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">Tisséo</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>srid</strong></td>
+      <td style="text-align: left">Numéro SRID du référentiel de projection spatial. Voir http://en.wikipedia.org/wiki/SRID</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">4326</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>bbox</strong></td>
+      <td style="text-align: left">Filtre pour les arrêts dont les données GPS sont comprises dans ce bounding box</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>format</strong></td>
+      <td style="text-align: left">Désigne le format de sortie (xml/json)</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">xml</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>displayLines</strong></td>
+      <td style="text-align: left">Retourne en plus les lignes de chaque arrêt</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">0 : Pas de lignes</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>displayCoordXY</strong></td>
+      <td style="text-align: left">Retourne en plus les coordonnées de chaque arrêt. C’est le barycentre des arrêts de la zone.</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">0 : Pas de coordonnées</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>lineId</strong></td>
+      <td style="text-align: left">Filtre sur les arrêts de la ligne uniquement.</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>terminusId</strong></td>
+      <td style="text-align: left">Filtre sur les zones d’arrêts arrivant et partant de ce terminus uniquement</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="rgles-de-gestion">Règles de gestion</h2>
+<ul>
+  <li><strong>lineId</strong> est l’id récupéré par la requête de liste des lignes.</li>
+  <li>Si <strong>lineId</strong> est passé en plus avec <strong>terminusId</strong>, dans ce cas le filtre porte sur tous les itinéraires de
+cette ligne ayant ce <strong>terminusId</strong>.</li>
+  <li>Le <strong>srid</strong> permet à la fois de modifier le système de coordonnées des XY des zones d’arrêts et de
+préciser dans quel référentiel la <strong>bbox</strong> est exprimée.</li>
+  <li>
+    <p>Format attendu pour une <strong>bbox</strong>: </p>
+
+    <p>longitude pt A, latitude pt A, longitude point B, latitude point B, </p>
+
+    <p>où A et B sont positionnés comme sur le schéma suivant :
+<img src="images/schema_carto.png" alt="schéma" />
+Représentation d’une <strong>bbox</strong> sur un fond cartographique</p>
+
+    <p><strong>Exemple en WGS84 (SRID 4326)</strong>
+le système GPS et encodé en URL : <em>bbox=1.4338121%2C43.5944292%2C1.4538121%2C43.6144292</em></p>
+  </li>
+  <li>
+    <p>Les différentes options et filtres peuvent être combinés ensemble :</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: left">Paramètre</th>
+          <th style="text-align: left">Valeurs possibles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: left"><strong>network</strong></td>
+          <td style="text-align: left">Tisséo, ALL</td>
+        </tr>
+        <tr>
+          <td style="text-align: left"><strong>srid</strong></td>
+          <td style="text-align: left">4326, 900913, …</td>
+        </tr>
+        <tr>
+          <td style="text-align: left"><strong>format</strong></td>
+          <td style="text-align: left">json, xml</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Remarque :</strong> le XY d’une zone d’arrêt est le barycentre des poteaux d’arrêts qui la composent.</p>
+  </li>
+</ul>
+
+<h2 id="rponse">Réponse</h2>
+<p>### Requête stopAreasList en XML
+<code>xml
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;lines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expirationDate="2014-05-21 03:45" xsi:noNamespaceSchemaLocation="http://cimm.tisseo.fr/xsd/LinesList.xsd"&gt;
+   &lt;line id="11821949021891694" color="(255,0,0)" bgXmlColor="#ff0000" fgXmlColor="#FFFFFF" name="Basso Cambo / Balma - Gramont" shortName="A" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822586" article="le" name="métro" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021892004" color="(255,255,0)" bgXmlColor="#ffff00" fgXmlColor="#000000" name="Borderouge / Ramonville" shortName="B" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822586" article="le" name="métro" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021892003" color="(0,64,196)" bgXmlColor="#0040c4" fgXmlColor="#FFFFFF" name="Aéroconstellation / Palais de Justice" shortName="T1" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822588" article="le" name="tramway" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891902" color="(255,94,22)" bgXmlColor="#ff5e16" fgXmlColor="#FFFFFF" name="Navette Aéroport" shortName="AERO" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821953316814854" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Navette Cimetières" shortName="CIMTR" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891634" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Navette Parc des Expositions" shortName="EXPO" network="Tisséo" /&gt;
+   &lt;line id="11821949025413195" color="(227,0,68)" bgXmlColor="#e30044" fgXmlColor="#FFFFFF" name="Noctambus" shortName="NOCT" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821953316814853" color="(255,168,255)" bgXmlColor="#ffa8ff" fgXmlColor="#FFFFFF" name="Navette Centre Ville" shortName="VILLE" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891625" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Sept Deniers / Gymnase de l'Hers" shortName="L16" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891615" color="(86,63,0)" bgXmlColor="#563f00" fgXmlColor="#FFFFFF" name="Grand Rond / Compans - Caffarelli" shortName="1" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891616" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Cours Dillon / Université Paul Sabatier" shortName="2" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023200859" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Cours Dillon / Université Paul Sabatier" shortName="2s" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891617" color="(102,0,153)" bgXmlColor="#660099" fgXmlColor="#FFFFFF" name="St Cyprien - République / Oncopole" shortName="3" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891618" color="(255,94,22)" bgXmlColor="#ff5e16" fgXmlColor="#FFFFFF" name="Basso Cambo / Lycée Polyvalent" shortName="8" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891619" color="(0,198,45)" bgXmlColor="#00c62d" fgXmlColor="#FFFFFF" name="Cours Dillon / Malepère" shortName="10" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891676" color="(0,198,45)" bgXmlColor="#00c62d" fgXmlColor="#FFFFFF" name="Cours Dillon / Malepère" shortName="10s" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821953316814849" color="(255,168,255)" bgXmlColor="#ffa8ff" fgXmlColor="#FFFFFF" name="Basso Cambo / Saint - Agne SNCF" shortName="11" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891621" color="(0,198,45)" bgXmlColor="#00c62d" fgXmlColor="#FFFFFF" name="Cours Dillon / Basso Cambo" shortName="12" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023200862" color="(0,198,45)" bgXmlColor="#00c62d" fgXmlColor="#FFFFFF" name="Cours Dillon / Basso Cambo" shortName="12s" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891623" color="(178,145,255)" bgXmlColor="#b291ff" fgXmlColor="#FFFFFF" name="Matabiau - Marengo SNCF / Basso Cambo" shortName="14" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891624" color="(142,74,5)" bgXmlColor="#8e4a05" fgXmlColor="#FFFFFF" name="Jeanne d'Arc / États-Unis Fondeyre" shortName="15" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891628" color="(255,94,22)" bgXmlColor="#ff5e16" fgXmlColor="#FFFFFF" name="Andromède - Lycée / Mondonville Église" shortName="17" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891627" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Borderouge / Place de l'indépendance" shortName="19" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891629" color="(0,198,45)" bgXmlColor="#00c62d" fgXmlColor="#FFFFFF" name="Balma - Gramont / Beaupuy Mairie" shortName="20" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949022509040" color="(0,198,45)" bgXmlColor="#00c62d" fgXmlColor="#FFFFFF" name="Basso Cambo / Colomiers Airbus" shortName="21" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891631" color="(142,74,5)" bgXmlColor="#8e4a05" fgXmlColor="#FFFFFF" name="Matabiau - Marengo SNCF / Gonin" shortName="22" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023200864" color="(142,74,5)" bgXmlColor="#8e4a05" fgXmlColor="#FFFFFF" name="Matabiau - Marengo SNCF / Gonin" shortName="22s" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023193145" color="(142,74,5)" bgXmlColor="#8e4a05" fgXmlColor="#FFFFFF" name="Jeanne d'Arc / Rangueil" shortName="23" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023989725" color="(178,145,255)" bgXmlColor="#b291ff" fgXmlColor="#FFFFFF" name="Blagnac E Zola / Aéroport Toulouse Blagnac" shortName="25" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023200852" color="(142,74,5)" bgXmlColor="#8e4a05" fgXmlColor="#FFFFFF" name="Borderouge / Launaguet Palanque" shortName="26" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023200854" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Lycée Toulouse-Lautrec / Rangueil" shortName="27" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023743333" color="(244,0,208)" bgXmlColor="#f400d0" fgXmlColor="#FFFFFF" name="Grand Rond / La Vache" shortName="29" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949024885921" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Aéroport Toulouse Blagnac / Fenouillet Ctre Cial" shortName="30" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891635" color="(142,74,5)" bgXmlColor="#8e4a05" fgXmlColor="#FFFFFF" name="Colomiers Gare SNCF / Brax le Château" shortName="32" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891896" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Argoulets / Bruguières Mairie" shortName="33" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023083020" color="(255,94,22)" bgXmlColor="#ff5e16" fgXmlColor="#FFFFFF" name="Arènes / Université Paul Sabatier" shortName="34" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891897" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Balma - Gramont / Drémil Stade" shortName="35" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949022374900" color="(142,74,5)" bgXmlColor="#8e4a05" fgXmlColor="#FFFFFF" name="Roseraie / Borderouge" shortName="36" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891898" color="(255,94,22)" bgXmlColor="#ff5e16" fgXmlColor="#FFFFFF" name="Jolimont / Ramonville Métro" shortName="37" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891636" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Empalot / Amouroux" shortName="38" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023200865" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Cours Dillon / Amouroux" shortName="38s" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891637" color="(0,198,45)" bgXmlColor="#00c62d" fgXmlColor="#FFFFFF" name="Argoulets / L'Union Somport" shortName="39" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891638" color="(244,0,208)" bgXmlColor="#f400d0" fgXmlColor="#FFFFFF" name="Borderouge / L'Union Malbou" shortName="40" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891639" color="(255,94,22)" bgXmlColor="#ff5e16" fgXmlColor="#FFFFFF" name="Borderouge / Chaussas" shortName="41" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891640" color="(255,94,22)" bgXmlColor="#ff5e16" fgXmlColor="#FFFFFF" name="Jeanne d'Arc / St Jean Clinique de l'Union" shortName="42" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891895" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Argoulets / St Jean Clinique de l'Union" shortName="43" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023200855" color="(0,64,196)" bgXmlColor="#0040c4" fgXmlColor="#FFFFFF" name="Jeanne d'Arc / Borderouge" shortName="44" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949024910297" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Jeanne d'Arc / Pelletier Purpan" shortName="45" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891641" color="(244,0,208)" bgXmlColor="#f400d0" fgXmlColor="#FFFFFF" name="Arènes / Pelletier Purpan" shortName="46" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891642" color="(244,0,2)" bgXmlColor="#f40002" fgXmlColor="#FFFFFF" name="Basso Cambo / Portet Gare SNCF ou Lycée Polyvalent" shortName="47" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891643" color="(0,198,45)" bgXmlColor="#00c62d" fgXmlColor="#FFFFFF" name="Basso Cambo / La Ramée" shortName="48" network="Tisséo" /&gt;
+   &lt;line id="11821949021891644" color="(0,64,196)" bgXmlColor="#0040c4" fgXmlColor="#FFFFFF" name="Basso Cambo / Portet Gare SNCF" shortName="49" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891645" color="(142,74,5)" bgXmlColor="#8e4a05" fgXmlColor="#FFFFFF" name="Basso Cambo / Portet H. Boucher ou Roques Acacias" shortName="50" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891646" color="(255,94,22)" bgXmlColor="#ff5e16" fgXmlColor="#FFFFFF" name="Balma - Gramont / La Terrasse" shortName="51" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891647" color="(86,63,0)" bgXmlColor="#563f00" fgXmlColor="#FFFFFF" name="Empalot / Roquettes église ou Pinsaguel mairie" shortName="52" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821953316814850" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Basso Cambo / Tibaous" shortName="53" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891649" color="(255,94,22)" bgXmlColor="#ff5e16" fgXmlColor="#FFFFFF" name="Empalot / Gleyze-Vieille" shortName="54" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891650" color="(244,0,2)" bgXmlColor="#f40002" fgXmlColor="#FFFFFF" name="Colomiers Gare SNCF / Plaisance Monestié" shortName="55" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891651" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Université Paul Sabatier / Auzeville Église" shortName="56" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891652" color="(86,63,0)" bgXmlColor="#563f00" fgXmlColor="#FFFFFF" name="Basso Cambo / Frouzins JP Sabatier" shortName="57" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891653" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Basso Cambo / Muret Lycée" shortName="58" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891654" color="(102,0,153)" bgXmlColor="#660099" fgXmlColor="#FFFFFF" name="La Vache / Lespinasse Mairie" shortName="59" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891655" color="(102,0,153)" bgXmlColor="#660099" fgXmlColor="#FFFFFF" name="La Vache / Castelginest Buffebiau" shortName="60" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891656" color="(244,0,2)" bgXmlColor="#f40002" fgXmlColor="#FFFFFF" name="Trois Cocus / Fonbeauzard Mairie, Montberon ou St Loup" shortName="61" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891657" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Ramonville Métro / Castanet-Tolosan" shortName="62" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949024740620" color="(255,168,255)" bgXmlColor="#ffa8ff" fgXmlColor="#FFFFFF" name="Compans - Caffarelli / Tournefeuille Lycée" shortName="63" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891659" color="(86,63,0)" bgXmlColor="#563f00" fgXmlColor="#FFFFFF" name="Arènes / Colomiers Lycée International" shortName="64" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891660" color="(178,145,255)" bgXmlColor="#b291ff" fgXmlColor="#FFFFFF" name="Arènes / Plaisance Monestié (par D632)" shortName="65" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891661" color="(0,198,45)" bgXmlColor="#00c62d" fgXmlColor="#FFFFFF" name="St Cyprien - République / Aéroport Toulouse Blagnac" shortName="66" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891662" color="(255,168,255)" bgXmlColor="#ffa8ff" fgXmlColor="#FFFFFF" name="Arènes / Plaisance Monestié (par Marquisat)" shortName="67" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891663" color="(255,168,255)" bgXmlColor="#ffa8ff" fgXmlColor="#FFFFFF" name="Ramonville Métro / La Terrasse" shortName="68" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891664" color="(178,145,255)" bgXmlColor="#b291ff" fgXmlColor="#FFFFFF" name="La Vache / Gratentour Gravette ou Bruguières" shortName="69" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891665" color="(255,168,255)" bgXmlColor="#ffa8ff" fgXmlColor="#FFFFFF" name="Jeanne d'Arc / Aéroconstellation" shortName="70" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891666" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Andromède - Lycée / Aussonne Agassines" shortName="71" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891667" color="(0,64,196)" bgXmlColor="#0040c4" fgXmlColor="#FFFFFF" name="Balma - Gramont / Balma Lasbordes" shortName="72" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891668" color="(244,0,2)" bgXmlColor="#f40002" fgXmlColor="#FFFFFF" name="Borderouge / St Jean Lestang" shortName="73" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891669" color="(86,63,0)" bgXmlColor="#563f00" fgXmlColor="#FFFFFF" name="Balma - Gramont / Rouffiac-Tolosan" shortName="74" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891670" color="(178,145,255)" bgXmlColor="#b291ff" fgXmlColor="#FFFFFF" name="Argoulets / Castelmaurou Mairie" shortName="75" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891671" color="(142,74,5)" bgXmlColor="#8e4a05" fgXmlColor="#FFFFFF" name="Argoulets / Lapeyrouse" shortName="76" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891672" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Balma - Gramont / Fonsegrives Collège" shortName="77" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891673" color="(244,0,2)" bgXmlColor="#f40002" fgXmlColor="#FFFFFF" name="Université Paul Sabatier / St Orens Lycée" shortName="78" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821953316814852" color="(244,0,2)" bgXmlColor="#f40002" fgXmlColor="#FFFFFF" name="Université Paul Sabatier / St Orens Lycée" shortName="78s" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891674" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Ramonville Métro / Labège Couder ou St-Orens Lycée" shortName="79" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949024202292" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Université Paul Sabatier / St-Orens Lycée" shortName="79s" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891675" color="(102,0,153)" bgXmlColor="#660099" fgXmlColor="#FFFFFF" name="Rangueil / Belberaud La Balme" shortName="80" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891682" color="(244,0,208)" bgXmlColor="#f400d0" fgXmlColor="#FFFFFF" name="Université Paul Sabatier / Castanet-Tolosan" shortName="81" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023798567" color="(244,0,208)" bgXmlColor="#f400d0" fgXmlColor="#FFFFFF" name="Université Paul Sabatier / Castanet -Tolosan" shortName="81s" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891683" color="(244,0,2)" bgXmlColor="#f40002" fgXmlColor="#FFFFFF" name="Université Paul Sabatier / Ramonville Midiville" shortName="82" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891684" color="(244,0,208)" bgXmlColor="#f400d0" fgXmlColor="#FFFFFF" name="Balma - Gramont / St Orens Lycée" shortName="83" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821953316814851" color="(51,255,255)" bgXmlColor="#33ffff" fgXmlColor="#FFFFFF" name="Balma - Gramont / Balma Bicentenaire" shortName="84" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821953316814855" color="(0,64,196)" bgXmlColor="#0040c4" fgXmlColor="#FFFFFF" name="Lycée Polyvalent / Cugnaux Henry Galdi" shortName="87" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023946608" color="(178,145,255)" bgXmlColor="#b291ff" fgXmlColor="#FFFFFF" name="Ramonville Métro / Hôpital Larrey" shortName="88" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949024037461" color="(178,145,255)" bgXmlColor="#b291ff" fgXmlColor="#FFFFFF" name="Université Paul Sabatier / CHR Rangueil" shortName="88s" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949022345006" color="(255,94,22)" bgXmlColor="#ff5e16" fgXmlColor="#FFFFFF" name="Malepère / Castanet-Tolosan" shortName="109" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023707108" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Barrière de Paris / Glacière Sesquières" shortName="110" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023706503" color="(244,0,208)" bgXmlColor="#f400d0" fgXmlColor="#FFFFFF" name="Ramonville Métro / Théogone / Ramonville Métro" shortName="111" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023742784" color="(0,198,45)" bgXmlColor="#00c62d" fgXmlColor="#FFFFFF" name="Ramonville Métro / Montjoie" shortName="112" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949025413197" color="(255,94,22)" bgXmlColor="#ff5e16" fgXmlColor="#FFFFFF" name="Pechbonnieu Collège / Fenouillet Croix" shortName="113" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023946609" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Borderouge / Quartier Virebent" shortName="114" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023946612" color="(0,198,45)" bgXmlColor="#00c62d" fgXmlColor="#FFFFFF" name="St Agne - Gare SNCF / Pech David" shortName="115" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949025413199" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Tournefeuille Lycée / Saint Lys Piscine" shortName="116" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949025413198" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Potier Oncopole / Gare Muret SNCF" shortName="117" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821953316814856" color="(0,198,45)" bgXmlColor="#00c62d" fgXmlColor="#FFFFFF" name="Liaison Oncopole" shortName="140" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822585" article="le" name="bus" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891899" color="(255,168,255)" bgXmlColor="#ffa8ff" fgXmlColor="#FFFFFF" name="La Vache / St Jory" shortName="105" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822589" article="le" name="transport à la demande" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891900" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Balma-Gramont / Aigrefeuille - Balma - Drémil Lafage - Flourens -  Mondouzil - Mons - Pin Balma - Quint Fonsegrives" shortName="106" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822589" article="le" name="transport à la demande" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949023946610" color="(244,0,2)" bgXmlColor="#f40002" fgXmlColor="#FFFFFF" name="Colomiers Gare SNCF / Aussonne - Cornebarrieu - Mondonville" shortName="118" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822589" article="le" name="transport à la demande" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949024259575" color="(255,94,22)" bgXmlColor="#ff5e16" fgXmlColor="#FFFFFF" name="Ramonville Métro / Aureville - Castanet Tolosan - Goyrans - Lacroix Falgarde - Mervilla - Pechbusque - Ramonville St Agne - Rebigue - Vieille Toulouse - Vigoulet Auzil" shortName="119" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822589" article="le" name="transport à la demande" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949024875466" color="(0,64,196)" bgXmlColor="#0040c4" fgXmlColor="#FFFFFF" name="Aéroconstellation / Aussonne - Beauzelle - Cornebarrieu - Mondonville - Seilh" shortName="120" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822589" article="le" name="transport à la demande" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891677" color="(255,168,255)" bgXmlColor="#ffa8ff" fgXmlColor="#FFFFFF" name="Saint Orens Lycée / Varennes En Clavié" shortName="201" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822589" article="le" name="transport à la demande" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891678" color="(148,210,77)" bgXmlColor="#94d24d" fgXmlColor="#FFFFFF" name="Castanet Tolosan / Montbrun Lauragais Roumieu" shortName="202" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822589" article="le" name="transport à la demande" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891680" color="(244,0,2)" bgXmlColor="#f40002" fgXmlColor="#FFFFFF" name="Labège Innopole Gare SNCF / Ayguesvives Collège" shortName="204" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822589" article="le" name="transport à la demande" /&gt;
+   &lt;/line&gt;
+   &lt;line id="11821949021891681" color="(38,206,255)" bgXmlColor="#26ceff" fgXmlColor="#FFFFFF" name="Castanet Tolosan / Ayguesvives Collège" shortName="205" network="Tisséo"&gt;
+      &lt;transportMode id="13792273858822589" article="le" name="transport à la demande" /&gt;
+   &lt;/line&gt;
+&lt;/lines&gt;
+</code>`                                                              </p>
+
+<h3 id="exemples-dutilisation">Exemples d’utilisation</h3>
+<p>Exemples de requêtes :</p>
+
+<ol>
+  <li>Liste de toutes les zones arrêts du réseau tisséo au format XML </li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/stopAreasList?&amp;key={your_key}</code></p>
+
+<ol>
+  <li>Liste de toutes les zones d’arrêts du réseau tisséo au format JSON </li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/stopAreasList?&amp;key={your_key}&amp;format=json</code></p>
+
+<ol>
+  <li>Liste de toutes les zones arrêts du réseau tisséo avec les lignes qui les desservent au format XML</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/stopAreasList?&amp;key={your_key}&amp;displayLines=1</code></p>
+
+<ol>
+  <li>Liste de toutes les zones arrêts et des lignes du réseau tisséo déservant un terminus au format XML</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/stopAreasList?&amp;key={your_key}&amp;displayLines=1&amp;terminusId=1970324837184808</code></p>
+
+<ol>
+  <li>Liste de toutes les zones d’arrêts du réseau tisséo, des lignes qui le desservent et leurs coordonnées géographique de l’arrêt au format XML</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/stopAreasList?&amp;key={your_key}&amp;displayLines=1&amp;displayCoordXY=1</code></p>
+
+<ol>
+  <li>Liste de toutes les zones d’arrêts contenus dans une bbox</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/stopAreasList?&amp;key={your_key}&amp;bbox=158019.352839%2C5403458.895141%%202C163077.902207%2C5404988.3027</code></p>
+
+      </div>
+    </div>
+    
+
+
+    </body>
+</html>

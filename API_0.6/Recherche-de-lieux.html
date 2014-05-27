@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Recherche De Lieux</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Documentation API TISSÉO">
+    <link rel="canonical" href="http://localhost:4000/Recherche-de-lieux.html">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+
+
+    <body>
+
+    <div class="page-content">
+      <div class="wrap">
+      <h1 id="recherche-de-lieux">Recherche de lieux</h1>
+<p>## Principe</p>
+
+<p>Cette API permet à partir d’un texte (ou d’un point X,Y) d’obtenir une liste de lieux pouvant
+correspondre. Les lieux retournés peuvent être des rues, des arrêts, des lieux publics ou des communes
+connus par notre système.
+Cette API ne se contente pas de rechercher les lieux contenant exactement la chaîne de caractères
+transmise, mais effectue une recherche plus large intégrant des prononciations proches par exemple.
+Elle peut être efficacement utilisée :</p>
+
+<ul>
+  <li>
+    <p>dans un objectif d’autocomplétion sur un champ de type lieu</p>
+  </li>
+  <li>
+    <p>pour de la géolocalisation</p>
+  </li>
+</ul>
+
+<p>Le format json a d’ailleurs été formaté pour pouvoir nativement être exploité par JQuery autocomplete avec les catégories : </p>
+
+<p>http://jqueryui.com/demos/autocomplete/#categories</p>
+
+<h2 id="mode-dappel-et-paramtres">Mode d’appel et Paramètres</h2>
+
+<p>URL : <code>http://pt.data.tisseo.fr/placesList?...paramètres...</code></p>
+
+<pre><code>**Nom**                     |   Description du paramètre                                                                              |  Requis ?   |   Valeur défaut                                                                                             :---------------------------|:--------------------------------------------------------------------------------------------------------|:------------|:---------------------- **key** | Valeur de la clef | Oui| aucune **term**                    |   Texte saisi (3 caractères minimum)                                                                    |  Non        | **network**                 |   Opérateur de transport                                                                                |  Non        |   Tisséo **coordinatesXY**           |   Retourne la liste des adresses les plus proches (triées par distance) de ce point de coordonnées x, y |  Non        |                  **maxDistance**             |   Distance au tour de laquelle s’effectue la recherche                                                  |  Non        |   300m                         **srid**                    |   Numéro SRID du référentiel de projection spatial. Voir http://en.wikipedia.org/wiki/SRID              |  Non        |   4326                           **number**                  |   Filtre sur le nb maxi de résultats à retourner par type de lieu                                       |  Non        |   Retourne tous les résultats                                                                                            **format**                  |   Désigne le format de sortie                                                                           |  Non        |   Xml **displayBestPlace**        |   Retourne le meilleur résultat en premier (0/1)                                                        |  Non        |   1 **displayOnlyStopAreas**    |   Retourne uniquement les lignes dont le type de lieu est un stop (0/1)                                 |  Non        |   0 : Pas de restriction                                                                       **displayOnlyRoads**        |   Retourne uniquement les lignes dont le type de lieu est une rue (0/1)                                 |  Non        |   0 : Pas de restriction                           **displayOnlyAdresses**     |   Retourne uniquement les lignes dont le type de lieu est une adresse (0/1)                             |  Non        |   0 : Pas de restriction                           **displayOnlyPublicPlaces** |   Retourne uniquement les lignes dont le type de lieu est une place publique (0/1)                      |  Non        |   0 : Pas de restriction                                                           **displayOnlyCities**       |   Retourne uniquement les lignes dont le type de lieu est une ville (0/1)                               |  Non        |   0 : Pas de restriction                              
+</code></pre>
+
+<h2 id="rgles-de-gestion">Règles de gestion</h2>
+
+<ul>
+  <li>Les requêtes d’autocomplétion (paramètre Term) avec moins de 3 caractères sont interdites, tenez-en compte dans votre implémentation</li>
+  <li>Un des 2 paramètres <strong>term</strong> ou <strong>coordinatesXY</strong> doit être fourni. Ils doivent être utilisés de manière exclusive, dans le cas contraire c’est l’option <strong>coordinatesXY</strong> qui est prise en compte uniquement.</li>
+  <li>Le <strong>srid</strong> permet à la fois de modifier le système de coordonnées des XY des zones d’arrêts et de préciser dans quel référentiel les coordonnées x, y (<strong>coordinatesXY</strong>) du point sont exprimées.</li>
+  <li>Avec l’option <strong>displayBestPlace</strong> le meilleur résultat est toujours celui qui est affiché en premier.</li>
+  <li>Les options <strong>displayOnlyStopAreas</strong> , <strong>displayOnlyRoads</strong> , <strong>displayOnlyAdresses</strong> , <strong>displayOnlyPublicPlaces</strong> , <strong>displayOnlyCities</strong> ne peuvent pas êtres combinées entre elles, elles sont à utiliser de manière exclusive.</li>
+  <li>Si <strong>coordinatesXY</strong> est utilisé alors seulement des Roads ou des Address seront retournées (pour connaitre les arrêts autour d’un XY, utilisez le service <strong>StopAreasList</strong> avec une <strong>bbox</strong>).</li>
+  <li>Toutes les autres options peuvent êtres combinées entre elles.</li>
+  <li>Valeurs Possibles</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"><strong>Options</strong></th>
+      <th style="text-align: left"><strong>Valeurs possibles</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>srid</strong></td>
+      <td style="text-align: left">4326, 900913, …</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>minScore</strong></td>
+      <td style="text-align: left">entre 0 et 1 (0.6 par defaut).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>format</strong></td>
+      <td style="text-align: left">json, xml</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>network</strong></td>
+      <td style="text-align: left">Tisséo, ALL</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="rponse">Réponse</h2>
+
+<h3 id="requte-term-en-xml">Requête term en XML</h3>
+
+<p>(conf. exemple 1 dans exemples d’utilisation)</p>
+
+<p><code>xml
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;placesList expirationDate="2012-09-21 3:45" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="http://pt.data.tisseo.fr/xsd/PlacesList.xsd"&gt;
+&lt;place label="RUE ANDRÉ CAVAGNOL (TOULOUSE)" category="Roads" key="RUE ANDRÉ CAVAGNOL
+     TOULOUSE" className="road" x="529475.028129" y="1844418.660892" rank="1" /&gt;
+&lt;place label="RUE CAVALIÉ (CASTANET-TOLOSAN)" category="Roads" key="RUE CAVALIÉ CASTANET-
+    TOLOSAN" className="road" x="533441.531106" y="1834470.032441" rank="2" /&gt;
+&lt;place label="RUE RÉGINE CAVAGNOUD (CUGNAUX)" category="Roads" key="RUE RÉGINE CAVAGNOUD
+     CUGNAUX" className="road" x="518378.777660" y="1838451.708525" rank="3" /&gt;
+&lt;place label="RÉSIDENCE LE BOIS DE CAVIROLLE (COLOMIERS)" category="Roads" key="RÉSIDENCE LE BOIS
+     DE CAVIROLLE COLOMIERS" className="road" x="518236.255674" y="1845041.887281" rank="4" /&gt;
+&lt;/placesList&gt;
+</code>
+### Requête coordinatesXY en XML</p>
+
+<p>(conf. exemple 2 dans exemples d’utilisation)
+<code>xml
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;placesList expirationDate="2012-09-21 3:45" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="http://pt.data.tisseo.fr/xsd/PlacesList.xsd"&gt;
+&lt;origin x="161710.27872999999" y="5401135.6896400005" srid="900913" /&gt;
+&lt;place label="Rue George Sand (TOULOUSE)" category="Roads" key="Rue George Sand" className="road"
+x="161807.331627" y="5401316.966570" rank="5" distanceToOrigin="76" /&gt;
+&lt;place label="11, Rue Colbert (TOULOUSE)" category="Address" key="11 Rue Colbert TOULOUSE"
+className="address" x="161697.12688348748" y="5401129.4784359802" rank="1" distanceToOrigin="10" /&gt;
+&lt;place label="18, Rue Colbert (TOULOUSE)" category="Address" key="18 Rue Colbert TOULOUSE"
+className="address" x="161687.10812932078" y="5401155.6034263" rank="2" distanceToOrigin="22" /&gt;
+&lt;place label="20, Rue Colbert (TOULOUSE)" category="Address" key="20 Rue Colbert TOULOUSE"
+className="address" x="161672.636595524" y="5401183.2652611667" rank="3" distanceToOrigin="43" /&gt;
+&lt;place label="21, Rue Colbert (TOULOUSE)" category="Address" key="21 Rue Colbert TOULOUSE"
+className="address" x="161665.95742607958" y="5401200.1697565252" rank="4" distanceToOrigin="56" /&gt;
+&lt;/placesList&gt;
+</code></p>
+
+<h3 id="requte-term-en-json">Requête term en JSON</h3>
+
+<p><code>json
+{
+  "expirationDate": "2012-09-21 3:45",
+  "placesList": {
+    "place": [
+      {
+        "label": "RUE ANDRÉ CAVAGNOL (TOULOUSE)",
+        "category": "Roads",
+        "key": "RUE ANDRÉ CAVAGNOL TOULOUSE",
+        "className": "road",
+        "x": "529475.028129",
+        "y": "1844418.660892",
+        "rank": "1"
+      },
+      {
+        "label": "RUE CAVALIÉ (CASTANET-TOLOSAN)",
+        "category": "Roads",
+        "key": "RUE CAVALIÉ CASTANET-TOLOSAN",
+        "className": "road",
+        "x": "533441.531106",
+        "y": "1834470.032441",
+        "rank": "2"
+      },
+      {
+        "label": "RUE RÉGINE CAVAGNOUD (CUGNAUX)",
+        "category": "Roads",
+        "key": "RUE RÉGINE CAVAGNOUD CUGNAUX",
+        "className": "road",
+        "x": "518378.777660",
+        "y": "1838451.708525",
+        "rank": "3"
+      },
+      {
+        "label": "RÉSIDENCE LE BOIS DE CAVIROLLE (COLOMIERS)",
+        "category": "Roads",
+        "key": "RÉSIDENCE LE BOIS DE CAVIROLLE COLOMIERS",
+        "className": "road",
+        "x": "518236.255674",
+        "y": "1845041.887281",
+        "rank": "4"
+      },
+      {}
+    ]
+  }
+}
+</code></p>
+
+<h3 id="requte-coordinatesxy-en-json">Requête coordinatesXY en JSON</h3>
+
+<p><code>json
+{
+  "expirationDate": "2012-09-21 3:45",
+  "placesList": {
+    "origin": {
+      "x": "161710.27872999999",
+      "y": "5401135.6896400005",
+      "srid": "900913"
+    },
+    "place": [
+      {
+        "label": "Rue George Sand (TOULOUSE)",
+        "category": "Roads",
+        "key": "Rue George Sand",
+        "className": "road",
+        "x": "161807.331627",
+        "y": "5401316.966570",
+        "rank": "5",
+        "distanceToOrigin": "76"
+      },
+      {
+        "label": "11, Rue Colbert (TOULOUSE)",
+        "category": "Adresses",
+        "key": "11 Rue Colbert TOULOUSE",
+        "className": "address",
+        "x": "161697.12688348748",
+        "y": "5401129.4784359802",
+        "rank": "1",
+        "distanceToOrigin": "10"
+      },
+      {
+        "label": "18, Rue Colbert (TOULOUSE)",
+        "category": "Adresses",
+        "key": "18 Rue Colbert TOULOUSE",
+        "className": "address",
+        "x": "161687.10812932078",
+        "y": "5401155.6034263",
+        "rank": "2",
+        "distanceToOrigin": "22"
+      },
+      {
+        "label": "20, Rue Colbert (TOULOUSE)",
+        "category": "Adresses",
+        "key": "20 Rue Colbert TOULOUSE",
+        "className": "address",
+        "x": "161672.636595524",
+        "y": "5401183.2652611667",
+        "rank": "3",
+        "distanceToOrigin": "43"
+      },
+      {
+        "label": "21, Rue Colbert (TOULOUSE)",
+        "category": "Adresses",
+        "key": "21 Rue Colbert TOULOUSE",
+        "className": "address",
+        "x": "161665.95742607958",
+        "y": "5401200.1697565252",
+        "rank": "4",
+        "distanceToOrigin": "56"
+      },
+      {}
+    ]
+  }
+} 
+</code></p>
+
+<h2 id="exemples-dutilisation">Exemples d’utilisation</h2>
+
+<ol>
+  <li>Liste des places correspondant au texte “cav “ utilisé comme paramètres au format xml</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/placesList?&amp;key={your_key}&amp;term=cav</code></p>
+
+<ol>
+  <li>Liste des adresses les plus proches d’un point géographique donné (triées par distance)</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/placesList?&amp;key={your_key}&amp;srid=900913&amp;coordinatesXY=161710.27873%2C5401135.68964&amp;number=5</code></p>
+
+<ol>
+  <li>Liste des places correspondant au texte “cav” et désignant uniquement des rues au format xml</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/placesList?&amp;key={your_key}&amp;term=cav&amp;displayOnlyRoads=1</code></p>
+
+<ol>
+  <li>Liste des places correspondant au texte “cav” utilisé comme paramètres au format json</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/placesList?&amp;key={your_key}&amp;term=cav&amp;format=json</code></p>
+
+<ol>
+  <li>Liste des places correspondant au texte “cav” et désignant uniquement des rues au format json</li>
+</ol>
+
+<p><code>http://pt.data.tisseo.fr/placesList?&amp;key={your_key}&amp;term=cav&amp;displayOnlyRoads=1&amp;format=json</code></p>
+
+      </div>
+    </div>
+    
+
+
+    </body>
+</html>

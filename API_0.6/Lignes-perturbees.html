@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lignes Perturbees</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Documentation API TISSÉO">
+    <link rel="canonical" href="http://localhost:4000/Lignes-perturbees.html">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+
+
+    <body>
+
+    <div class="page-content">
+      <div class="wrap">
+      <h1 id="liste-des-lignes-perturbes">Liste des lignes perturbées</h1>
+<p>## Principe
+Cette API permet d’obtenir la liste de toutes les lignes perturbées du réseau.
+Cela permet par exemple d’afficher un pictogramme à chaque fois que vous affichez cette ligne à
+l’utilisateur.
+## Mode d’appel et Paramètres</p>
+
+<p>URL : <code>http://pt.data.tisseo.fr/linesDisruptedList?...paramètres...</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Nom</th>
+      <th style="text-align: left">Description du paramètre</th>
+      <th style="text-align: left">Requis ?</th>
+      <th style="text-align: left">Valeur défaut</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>key</strong></td>
+      <td style="text-align: left">Valeur de la clef</td>
+      <td style="text-align: left">Oui</td>
+      <td style="text-align: left">aucune</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">network</td>
+      <td style="text-align: left">Opérateur de transport</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">Tisséo</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">format</td>
+      <td style="text-align: left">Désigne le format de sortie</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">xml</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">contentFormat</td>
+      <td style="text-align: left">Format du contenu des messages</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">text</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">lineShortName</td>
+      <td style="text-align: left">Sélection des messages d’une seule ligne commerciale</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="rgles-de-gestion">Règles de gestion</h2>
+
+<ul>
+  <li>
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: left">Paramètre</th>
+          <th style="text-align: left">Valeurs possibles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: left"><strong>network</strong></td>
+          <td style="text-align: left">Tisséo, ALL</td>
+        </tr>
+        <tr>
+          <td style="text-align: left"><strong>srid</strong></td>
+          <td style="text-align: left">4326, 900913, …</td>
+        </tr>
+        <tr>
+          <td style="text-align: left"><strong>format</strong></td>
+          <td style="text-align: left">json, xml</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<p>Le contenu de la balise content sera toujours encadré par des <code>&lt;![CDATA[</code> et <code>]]</code>&gt; afin d’éviter que le contenu
+(html en particulier) vienne perturber les parser XML.</p>
+
+<p>Le « scope » d’un message indique si le message concerne une ou plusieurs lignes, ou s’il s’agit d’un message général.</p>
+
+<p>La valeur « importanceLevel » indique s’il s’agit d’un message « normal » ou d’un message « important » (affiché en page d’accueil de www.tisseo.fr)</p>
+
+<p>L’url pointe sur la source officielle de l’information : une page du site tisseo.fr.</p>
+
+<h2 id="rponse">Réponse</h2>
+<p>### Requête linesDisruptedList en XML
+``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<lines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expirationdate="2014-05-21 03:45" xsi:nonamespaceschemalocation="http://cimm.tisseo.fr/xsd/LinesDisruptedList.xsd">
+  <line name="Basso Cambo / Balma - Gramont" shortname="A" network="">
+    <disturbmessage>
+      <title>Accès Métro - Ascenseurs et escaliers mécaniques lignes A et B</title>
+      <content mode="text">&lt;![CDATA[Station Jean Jaurès
+A partir du 25 mars 2014, dans le cadre de travaux de réaménagement de la station Jean Jaurès, l'ascenseur et les escaliers mécaniques situés allées Jean Jaurès (côté Flunch) sont indisponibles. Remise en service prévue en juillet 2014. 
+	L'accès à la ligne A en ascenseur reste possible en utilisant les autres ascenseurs situés sur le côté opposé des allées Jean Jaurès (à proximité de l’Agence Air France) ou sur les allées du Président Roosevelt.
+	Station Bellefontaine
+A partir du 7 avril 2014, pour la sécurité et le confort de ses voyageurs, Tisséo procède au renouvellement de l’ascenseur de la station Bellefontaine reliant le quai direction Balma-Gramont à la salle des billets.
+	Pour prendre la direction de Balma-Gramont à partir de Bellefontaine, empruntez l'ascenseur du quai opposé, le métro jusqu’à Basso Cambo, puis dans l’autre sens.
+	Pour sortir de la station Bellefontaine en provenance de Basso Cambo, poursuivez en métro vers Reynerie, puis dans l’autre sens. En journée, vous pouvez également emprunter les bus de la ligne 14.
+	Remise en service prévue le 17 juin 2014.
+	Station Patte d’Oie
+A partir du 7 avril 2014, pour la sécurité et le confort de ses voyageurs, Tisséo procède au renouvellement des ascenseurs de la station Patte d’Oie.
+	Pour accéder ou sortir du métro, vous pouvez rejoindre les stations St Cyprien - République ou Arènes.
+	En journée, vous pouvez également emprunter les lignes de bus 14, 45 et 66.
+	Remise en service prévue le 17 juin 2014.
+	Station Esquirol
+En raison d'un problème technique, l’escalier mécanique montant reliant la salle des billets à l'extérieur (côté rue des Changes) est indisponible.
+	Remise en service prévue le 24 mai 2014.</content></disturbmessage></line></lines></p>
+
+<pre><code>A partir du 14 mai 2014, en raison de travaux de maintenance, l'escalier mécanique descendant qui relie la salle des billets au niveau intermédiaire (côté rue saint Rome) est indisponible.
+Remise en service prévue le 26 mai 2014.
+
+Un escalier fixe et un ascenseur sont à votre disposition pour poursuivre votre déplacement.
+Station Marengo SNCF En raison d'une opération de maintenance, l’escalier mécanique montant, reliant le quai (direction Balma Gramont) à la salle des billets, est indisponible.
+Un escalier fixe et un ascenseur sont à votre disposition pour poursuivre votre déplacement.
+Remise en service prévue le 11 juin 2014.
+Station Saint Cyprien - République A partir du 13 mai 2014, en raison de travaux de maintenance, l'escalier mécanique descendant qui relie le niveau intermédiaire à la salle des billets est indisponible.
+Un escalier fixe et un ascenseur sont à votre disposition pour poursuivre votre déplacement.
+Remise en service prévue le 26 mai 2014.
+Station Mermoz En raison d'une opération de maintenance, l'ascenseur reliant la salle des billets à l'extérieur est indisponible.
+Pour quitter la station, vous pouvez reprendre le métro et sortir aux stations Bagatelle ou Fontaine Lestang.
+Pour accéder au métro, nous vous proposons de rejoindre soit la station Bagatelle, soit la station Fontaine Lestang.
+Remise en service prévue le 30 mai 2014.]]&gt;&lt;/content&gt;
+  &lt;url&gt;http://www.tisseo.fr/node/888&lt;/url&gt;
+&lt;/disturbMessage&gt;
+</code></pre>
+<p>&lt;/line&gt;
+  <line name="Sept Deniers / Gymnase de l'Hers" shortname="L16" network="">
+    <disturbmessage>
+      <title>Ligne L16 - Ponctualité et déviation chemin de la Garonne</title>
+      <content mode="text">&lt;![CDATA[Ponctualité
+Afin d'assurer la régularité du passage des bus de la ligne L16, en cas de légère avance, le conducteur peut être amené à effectuer des arrêts de courte durée sur l'ensemble du parcours de la ligne.
+	Déviation chemin de la Garonne.
+En raison de travaux chemin de la Garonne, à  Toulouse, du 19 au 20 mai 2014, de 8 h 30 à 16 h 00, la ligne L16 est déviée.</content></disturbmessage></line></p>
+
+<pre><code>	Arrêt non desservi direction Gymnase de l'Hers : terminus Sept Deniers
+
+	Arrêts non desservis direction Sept Deniers : Chemin Garonne, Pierre Mounicq, Roques, Route de Blagnac, Sept Deniers
+
+	Arrêt provisoire : le terminus est reporté à l'arrêt Ernest Wallon de la ligne 70.]]&gt;&lt;/content&gt;
+  &lt;url&gt;http://www.tisseo.fr/node/508&lt;/url&gt;
+&lt;/disturbMessage&gt;
+</code></pre>
+<p>&lt;/line&gt;
+  <line name="Grand Rond / Compans - Caffarelli" shortname="1" network="">
+    <disturbmessage>
+      <title>Ligne 1 - Terminus Grand Rond reporté</title>
+      <content mode="text">&lt;![CDATA[Terminus Grand Rond reporté
+En raison de travaux allées Paul Sabatier, du 14 au 17 avril 2014, le terminus "Grand Rond" est reporté.
+	Merci de vous reporter au niveau du potelet provisoire situé à quelques mètres après la pharmacie.]]&gt;</content>
+      <url>http://www.tisseo.fr/node/500</url>
+    </disturbmessage>
+  </line>
+  <line name="Cours Dillon / Basso Cambo" shortname="12" network="">
+    <disturbmessage>
+      <title>Ligne 12 : Déviation route de Seysses</title>
+      <content mode="text">&lt;![CDATA[Déviation route de Seysses
+En raison de travaux route de Seysses, à Toulouse, du lundi 19 mai au vendredi 20 juin 2014, les lignes 12 et 12S sont déviées direction Cours Dillon uniquement.</content></disturbmessage></line></p>
+
+<pre><code>	 Arrêts non desservis : Bordelongue, Touraine, Bernadette, Orbesson et Barrière de Muret.]]&gt;&lt;/content&gt;
+  &lt;url&gt;http://www.tisseo.fr/node/506&lt;/url&gt;
+&lt;/disturbMessage&gt;
+</code></pre>
+<p>&lt;/line&gt;
+  <line name="Basso Cambo / Colomiers Airbus" shortname="21" network="">
+    <disturbmessage>
+      <title>Ligne 21 - Terminus Colomiers Airbus, arrêt Lauragais reporté, fête locale</title>
+      <content mode="text">&lt;![CDATA[Terminus Colomiers Airbus
+A compter du lundi 6 janvier 2014, entre 16 h 15 et 18 h 45, en période scolaire uniquement, le terminus Colomiers Airbus est reporté sur le rond-point desservant l'avenue Yves Brunaud et les allées de l'Aubrac, du Galibier et du Lautaret.</content></disturbmessage></line></p>
+
+<pre><code>	Arrêts non desservis en période scolaire entre 16 h 15 et 18 h 45 : Lautaret, Clément Ader et terminus Colomiers Airbus.
+
+Arrêt Lauragais reporté A compter du lundi 10 février 2014, l'arrêt Lauragais en direction de Colomiers Airbus est reporté devant la médiathèque.
+Fête locale à Colomiers A compter du mardi 27 mai au dimanche 1er juin 2014, la ligne est déviée dans les 2 sens. Le samedi 30 mai 2014, le terminus est reporté à Colomiers Gare SNCF.
+
+	 Arrêts non desservis direction Basso Cambo : Poitou, Passerelle, Colomiers Relais Bus, Hall Comminges, Lauragais.
+
+	Arrêts non desservis direction Colomiers Airbus : Lauragais, Hall Comminges, Colomiers Relais Bus, Passerelle, Poitou, Cantal.]]&gt;&lt;/content&gt;
+  &lt;url&gt;http://www.tisseo.fr/node/522&lt;/url&gt;
+&lt;/disturbMessage&gt;
+</code></pre>
+<p>&lt;/line&gt;
+  <line name="Aéroport Toulouse Blagnac / Fenouillet Ctre Cial" shortname="30" network="">
+    <disturbmessage>
+      <title>Ligne 30 - Nouvelle fiche horaire</title>
+      <content mode="text">&lt;![CDATA[ligne_30.pdf
+	Nouvelle fiche horaire 
+Une nouvelle fiche horaire applicable au lundi 28 avril 2014, intégrant des modifications d'horaires est disponible à partir du jeudi 24 avril, dans les agences et les salles d’attente Tisséo ainsi que dans les mairies et dès à présent sur cette page.]]&gt;</content>
+      <url>http://www.tisseo.fr/node/1818</url>
+    </disturbmessage>
+  </line>
+  <line name="Argoulets / Bruguières Mairie" shortname="33" network="">
+    <disturbmessage>
+      <title>Ligne 33 - Déviation à Gratentour</title>
+      <content mode="text">&lt;![CDATA[Déviation à Gratentour
+En raison de la fête locale, rue de Maurys à Grantentour, du vendredi 23 au lundi 26 mai 2014, la ligne 33 est déviée.</content></disturbmessage></line></p>
+
+<pre><code>	Arrêts non desservis : Labourdette, Mairie Gratentour, Maurys]]&gt;&lt;/content&gt;
+  &lt;url&gt;http://www.tisseo.fr/node/531&lt;/url&gt;
+&lt;/disturbMessage&gt;
+</code></pre>
+<p>&lt;/line&gt;
+  <line name="Balma - Gramont / Drémil Stade" shortname="35" network="">
+    <disturbmessage>
+      <title>Ligne 35 - Modifications horaires et changement de quai à Balma Gramont</title>
+      <content mode="text">&lt;![CDATA[Modifications horaires et changement de quai à Balma Gramont
+A compter du lundi 12 mai 2014 :
+	&bull; les 3 départs de Balma Gramont de 16 h 30, 17 h 00 et 18 h 30 sont retardés de 3 minutes,
+	&bull; le quai de départ de la ligne 35 à Balma Gramont est modifié ; il se situe désormais sur le même quai que le TAD 106.]]&gt;</content>
+      <url>http://www.tisseo.fr/node/533</url>
+    </disturbmessage>
+  </line>
+  <line name="Balma - Gramont / La Terrasse" shortname="51" network="">
+    <disturbmessage>
+      <title>Ligne 51 - Nouvelle affectation du quai de Balma Gramont</title>
+      <content mode="text">&lt;![CDATA[Nouvelle affectation du quai de Balma Gramont
+A partir du lundi 12 mai 2014, l'emplacement du quai de départ de la ligne 51, à Balma Gramont, est déplacé juste devant celui de la ligne 84.]]&gt;</content>
+      <url>http://www.tisseo.fr/node/548</url>
+    </disturbmessage>
+  </line>
+  <line name="Empalot / Roquettes église ou Pinsaguel mairie" shortname="52" network="">
+    <disturbmessage>
+      <title>Ligne 52 - Déviation à Roquettes</title>
+      <content mode="text">&lt;![CDATA[Déviation à Roquettes
+En raison de la fête locale Place Montségur, à Roquettes, du mardi 20 mai au lundi 26 mai 2014, la ligne 52 est déviée.</content></disturbmessage></line></p>
+
+<pre><code>	Arrêts non desservis direction Empalot: Le Lac, Echez, Lèze, Ch&amp;acirc;teau Sud et Roquettes Eglise.
+
+	Arrêt non desservi direction Roquettes Eglise : Roquettes Eglise, terminus reporté à l'arrêt Lèze.]]&gt;&lt;/content&gt;
+  &lt;url&gt;http://www.tisseo.fr/node/549&lt;/url&gt;
+&lt;/disturbMessage&gt;
+</code></pre>
+<p>&lt;/line&gt;
+  <line name="Université Paul Sabatier / Auzeville Église" shortname="56" network="">
+    <disturbmessage>
+      <title>Ligne 56 - Nouvelle fiche horaire</title>
+      <content mode="text">&lt;![CDATA[ligne_56.pdf
+	Nouvelle fiche horaire
+Une nouvelle fiche horaire applicable au lundi 28 avril 2014, intégrant des modifications d'horaires est disponible à partir du jeudi 24 avril, dans les agences et les salles d’attente Tisséo ainsi que dans les mairies et dès à présent sur cette page.]]&gt;</content>
+      <url>http://www.tisseo.fr/node/553</url>
+    </disturbmessage>
+  </line>
+  <line name="Ramonville Métro / Castanet-Tolosan" shortname="62" network="">
+    <disturbmessage>
+      <title>Ligne 62 - Nouvelle fiche horaire</title>
+      <content mode="text">&lt;![CDATA[ligne_62.pdf
+	Nouvelle fiche horaire
+Une nouvelle fiche horaire applicable au lundi 28 avril 2014, intégrant des modifications d'horaires est disponible à partir du jeudi 24 avril, dans les agences et les salles d’attente Tisséo ainsi que dans les mairies et dès à présent sur cette page.]]&gt;</content>
+      <url>http://www.tisseo.fr/node/558</url>
+    </disturbmessage>
+  </line>
+  <line name="Arènes / Colomiers Lycée International" shortname="64" network="">
+    <disturbmessage>
+      <title>Ligne 64 - Déviations à Colomiers</title>
+      <content mode="text">&lt;![CDATA[Déviations à Colomiers
+ En raison de travaux boulevards de Sélery et de Pibrac à Colomiers, du 24 février au 20 juin 2014, la ligne 64 est déviée.</content></disturbmessage></line></p>
+
+<pre><code>	Arrêts non desservis   :   Stade Bendichou (direction Colomiers Lycée International), 14ème Régiment d'Infanterie, Champagne (dans les deux sens).
+
+	Arrêts provisoires : Chemin de l'Ormeau, Chemin de Bouconne, Boulevard de Sélery. En raison d'une fête locale à Colomiers, du mardi 27 mai au dimanche 1er juin 2014, la ligne 64 est déviée dans les 2 sens entre le Rond Point Gascogne et le Boulevard Sélery. 
+
+
+	Arrêts non desservis : Colomiers Relais Bus, Passerelle, 14e Régiment d'Infanterie, Champagne, Stade Bendichou.]]&gt;&lt;/content&gt;
+  &lt;url&gt;http://www.tisseo.fr/node/559&lt;/url&gt;
+&lt;/disturbMessage&gt;
+</code></pre>
+<p>&lt;/line&gt;
+  <line name="St Cyprien - République / Aéroport Toulouse Blagnac" shortname="66" network="">
+    <disturbmessage>
+      <title>Ligne 66 - Navette chantier Envol et arrêt Marie Curie non desservi</title>
+      <content mode="text">&lt;![CDATA[Navette_Chantier_Envol.pdf
+	 Navette chantier Envol : desserte de la zone aéroportuaire
+Depuis le lundi 18 mars 2013, la Navette chantier Envol dessert gratuitement la zone aéroportuaire.
+	Elle circule du lundi au vendredi, de 7h15 à 9h30 et de 16h à 19h30 entre Pasteur - Mairie de Blagnac (départ à chaque arrivée de tram) et Normandie (à proximité de la zone aéroportuaire).
+	Les navettes stationnent à l'intersection de l'avenue du Parc et du chemin de Bélisaire, avec passage par la station "Pasteur &ndash; Mairie de Blagnac".
+	Arrêt Marie Curie non desservi
+Pendant toute la durée des travaux de la ligne de tram Envol à Blagnac, l'arrêt Marie Curie n'est pas desservi.]]&gt;</content>
+      <url>http://www.tisseo.fr/node/561</url>
+    </disturbmessage>
+  </line>
+  <line name="La Vache / Gratentour Gravette ou Bruguières" shortname="69" network="">
+    <disturbmessage>
+      <title>Ligne 69 - Déviation à Gratentour</title>
+      <content mode="text">&lt;![CDATA[Déviation à Gratentour
+En raison de la fête locale, rue de Maurys à Grantentour, du vendredi 23 au lundi 26 mai 2014, la ligne 69 est déviée.</content></disturbmessage></line></p>
+
+<pre><code>	Arrêts non desservis : Acacias, Mairie Gratentour, Maurys]]&gt;&lt;/content&gt;
+  &lt;url&gt;http://www.tisseo.fr/node/564&lt;/url&gt;
+&lt;/disturbMessage&gt;
+</code></pre>
+<p>&lt;/line&gt;
+  <line name="Ramonville Métro / Labège Couder ou St-Orens Lycée" shortname="79" network="">
+    <disturbmessage>
+      <title>Lignes 79 et 79S - Escalquens : Arrêt La Place déplacé</title>
+      <content mode="text">&lt;![CDATA[Escalquens : l'arrêt La Place est déplacé
+A partir de lundi 12 mai 2014,
+	l'arrêt La Place est déplacé de 140 m en direction de Saint-Orens Lycée, et de 180 m après l'arrêt Pech en direction de Ramonville Métro.
+	Il se situe au niveau du N&deg; 27 avenue de la Bourdette. L'arrêt Pech est supprimé.</content></disturbmessage></line></p>
+
+<pre><code>	Arrêt supprimé : : Pech.]]&gt;&lt;/content&gt;
+  &lt;url&gt;http://www.tisseo.fr/node/574&lt;/url&gt;
+&lt;/disturbMessage&gt;
+</code></pre>
+<p>&lt;/line&gt;
+  <line name="Rangueil / Belberaud La Balme" shortname="80" network="">
+    <disturbmessage>
+      <title>Ligne 80 - Rectificatif horaire</title>
+      <content mode="text">&lt;![CDATA[Rectificatif horaire
+A partir du lundi 12 mai 2014, le départ de 7h15 du terminus Belberaud La Balme en direction de Rangueil est avancé de 3 minutes.]]&gt;</content>
+      <url>http://www.tisseo.fr/node/575</url>
+    </disturbmessage>
+  </line>
+  <line name="Université Paul Sabatier / Castanet-Tolosan" shortname="81" network="">
+    <disturbmessage>
+      <title>Lignes 81 et 81S - Nouvelle fiche horaire</title>
+      <content mode="text">&lt;![CDATA[ligne_81.pdf
+	Nouvelle fiche horaire
+Une nouvelle fiche horaire applicable au lundi 28 avril 2014, intégrant des modifications d'horaires est disponible à partir du jeudi 24 avril, dans les agences et les salles d’attente Tisséo ainsi que dans les mairies et dès à présent sur cette page.]]&gt;</content>
+      <url>http://www.tisseo.fr/node/576</url>
+    </disturbmessage>
+  </line>
+  <line name="Université Paul Sabatier / Ramonville Midiville" shortname="82" network="">
+    <disturbmessage>
+      <title>Ligne 82 - Nouvelle fiche horaire</title>
+      <content mode="text">&lt;![CDATA[ligne_82.pdf
+	Nouvelle fiche horaire
+Une nouvelle fiche horaire applicable au lundi 28 avril 2014, intégrant des modifications d'horaires est disponible à partir du jeudi 24 avril, dans les agences et les salles d’attente Tisséo ainsi que dans les mairies et dès à présent sur cette page.]]&gt;</content>
+      <url>http://www.tisseo.fr/node/577</url>
+    </disturbmessage>
+  </line>
+  <line name="Pechbonnieu Collège / Fenouillet Croix" shortname="113" network="">
+    <disturbmessage>
+      <title>Ligne 113 - Castelginest : arrêt Castelginest Buffebiau.</title>
+      <content mode="text">&lt;![CDATA[Arrêt Castelginest Buffebiau.
+En raison de travaux chemin de Buffebiau à Castelginest, à compter du mercredi 21 mai jusqu'au vendredi 6 juin 2014, l'arrêt  Castelginest Buffebiau est neutralisé. </content></disturbmessage></line></p>
+
+<pre><code>	 Arrêt provisoire : 101 chemin de Buffebiau.]]&gt;&lt;/content&gt;
+  &lt;url&gt;http://www.tisseo.fr/node/4430&lt;/url&gt;
+&lt;/disturbMessage&gt;
+</code></pre>
+<p>&lt;/line&gt;
+  <line name="Tournefeuille Lycée / Saint Lys Piscine" shortname="116" network="">
+    <disturbmessage>
+      <title>Ligne 116 - Déviation à Saint Lys  et départ avancé.</title>
+      <content mode="text">&lt;![CDATA[Déviation à Saint Lys
+A compter du lundi 21 octobre, en raison de travaux rue du Moulin à Saint Lys, le terminus Saint Lys Piscine est reporté à l'entrée du boulevard de la piscine.
+	Départ avancé au terminus Saint-Lys Piscine
+A compter du 22 avril 2014 :
+	le départ de 6h45 du terminus Saint-Lys Piscine est avancé à 6h40.]]&gt;</content>
+      <url>http://www.tisseo.fr/node/4431</url>
+    </disturbmessage>
+  </line>
+  <line name="La Vache / St Jory" shortname="105" network="">
+    <disturbmessage>
+      <title>TAD 105 - Départs retardés.</title>
+      <content mode="text">&lt;![CDATA[Départs retardés
+A compter du lundi 16 septembre 2013, les départs suivants sont retardés :</content></disturbmessage></line></p>
+
+<pre><code>	 départ de Saint Jory de 16h45 retardé à 16h50.
+
+	 départ de La Vache de 17h30 retardé à 17h35.
+
+	 départ de Saint Jory de 18h10 retardé à 18h15.]]&gt;&lt;/content&gt;
+  &lt;url&gt;http://www.tisseo.fr/node/836&lt;/url&gt;
+&lt;/disturbMessage&gt;
+</code></pre>
+<p>&lt;/line&gt;
+&lt;/lines&gt;
+```
+## Exemples d’utilisation
+1. Liste des lignes perturbées au format XML</p>
+
+<p><code>http://pt.data.tisseo.fr/linesDisruptedList?&amp;key={your_key}</code></p>
+
+<ol>
+  <li>
+    <p>Liste des lignes perturbées au format JSON</p>
+
+    <p><code>http://pt.data.tisseo.fr/linesDisruptedList?&amp;key={your_key}&amp;format=json</code></p>
+  </li>
+</ol>
+
+      </div>
+    </div>
+    
+
+
+    </body>
+</html>

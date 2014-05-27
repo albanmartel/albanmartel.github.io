@@ -1,0 +1,4345 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Liste Des Lignes</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Documentation API TISSÉO">
+    <link rel="canonical" href="http://localhost:4000/Liste-des-lignes.html">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+
+
+    <body>
+
+    <div class="page-content">
+      <div class="wrap">
+      <h1 id="liste-des-lignes">Liste des lignes</h1>
+<p>## Principe
+Cette API permet d’obtenir la liste de toutes les lignes disponibles sur le réseau.</p>
+
+<h2 id="mode-dappel-et-paramtres">Mode d’appel et Paramètres</h2>
+<p><strong>URL : <code>http://pt.data.tisseo.fr/linesList?...paramètres...</code></strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Nom</th>
+      <th style="text-align: left">Description du paramètrée</th>
+      <th style="text-align: left">Requis</th>
+      <th style="text-align: left">Valeur_défaut</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>key</strong></td>
+      <td style="text-align: left">Valeur de la clef</td>
+      <td style="text-align: left">Oui</td>
+      <td style="text-align: left">aucune</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>network</strong></td>
+      <td style="text-align: left">Opérateur de transport</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">Tisséo</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>format</strong></td>
+      <td style="text-align: left">Désigne le format de sortie</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">Xml</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>lineId</strong></td>
+      <td style="text-align: left">Filtre sur une seule ligne</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>displayTerminus</strong></td>
+      <td style="text-align: left">Retourne en plus les arrêts logiques terminus de chaque ligne (0/1)</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">0</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="rgles-de-gestion">Règles de gestion</h2>
+
+<ul>
+  <li>Valeurs possibles</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>network</strong></td>
+      <td style="text-align: left">Tisséo, ALL</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>format</strong></td>
+      <td style="text-align: left">json, xml</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="rponse">Réponse</h2>
+
+<h3 id="requte-au-format-xml">Requête au format XML</h3>
+
+<p>``` xml
+<?xml version="1.0" encoding="UTF-8"?>
+<lines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expirationdate="2014-05-21 03:45" xsi:nonamespaceschemalocation="http://cimm.tisseo.fr/xsd/LinesList.xsd">
+   <line id="11821949021891694" color="(255,0,0)" bgxmlcolor="#ff0000" fgxmlcolor="#FFFFFF" name="Basso Cambo / Balma - Gramont" shortname="A" network="Tisséo">
+      <transportmode id="13792273858822586" article="le" name="métro"></transportmode>
+   </line>
+   <line id="11821949021892004" color="(255,255,0)" bgxmlcolor="#ffff00" fgxmlcolor="#000000" name="Borderouge / Ramonville" shortname="B" network="Tisséo">
+      <transportmode id="13792273858822586" article="le" name="métro"></transportmode>
+   </line>
+   <line id="11821949021892003" color="(0,64,196)" bgxmlcolor="#0040c4" fgxmlcolor="#FFFFFF" name="Aéroconstellation / Palais de Justice" shortname="T1" network="Tisséo">
+      <transportmode id="13792273858822588" article="le" name="tramway"></transportmode>
+   </line>
+   <line id="11821949021891902" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Navette Aéroport" shortname="AERO" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821953316814854" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Navette Cimetières" shortname="CIMTR" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891634" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Navette Parc des Expositions" shortname="EXPO" network="Tisséo"></line>
+   <line id="11821949025413195" color="(227,0,68)" bgxmlcolor="#e30044" fgxmlcolor="#FFFFFF" name="Noctambus" shortname="NOCT" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821953316814853" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Navette Centre Ville" shortname="VILLE" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891625" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Sept Deniers / Gymnase de l'Hers" shortname="L16" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891615" color="(86,63,0)" bgxmlcolor="#563f00" fgxmlcolor="#FFFFFF" name="Grand Rond / Compans - Caffarelli" shortname="1" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891616" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Cours Dillon / Université Paul Sabatier" shortname="2" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023200859" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Cours Dillon / Université Paul Sabatier" shortname="2s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891617" color="(102,0,153)" bgxmlcolor="#660099" fgxmlcolor="#FFFFFF" name="St Cyprien - République / Oncopole" shortname="3" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891618" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Basso Cambo / Lycée Polyvalent" shortname="8" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891619" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Cours Dillon / Malepère" shortname="10" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891676" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Cours Dillon / Malepère" shortname="10s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821953316814849" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Basso Cambo / Saint - Agne SNCF" shortname="11" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891621" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Cours Dillon / Basso Cambo" shortname="12" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023200862" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Cours Dillon / Basso Cambo" shortname="12s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891623" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="Matabiau - Marengo SNCF / Basso Cambo" shortname="14" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891624" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Jeanne d'Arc / États-Unis Fondeyre" shortname="15" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891628" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Andromède - Lycée / Mondonville Église" shortname="17" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891627" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Borderouge / Place de l'indépendance" shortname="19" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891629" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Balma - Gramont / Beaupuy Mairie" shortname="20" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949022509040" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Basso Cambo / Colomiers Airbus" shortname="21" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891631" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Matabiau - Marengo SNCF / Gonin" shortname="22" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023200864" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Matabiau - Marengo SNCF / Gonin" shortname="22s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023193145" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Jeanne d'Arc / Rangueil" shortname="23" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023989725" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="Blagnac E Zola / Aéroport Toulouse Blagnac" shortname="25" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023200852" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Borderouge / Launaguet Palanque" shortname="26" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023200854" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Lycée Toulouse-Lautrec / Rangueil" shortname="27" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023743333" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Grand Rond / La Vache" shortname="29" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949024885921" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Aéroport Toulouse Blagnac / Fenouillet Ctre Cial" shortname="30" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891635" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Colomiers Gare SNCF / Brax le Château" shortname="32" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891896" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Argoulets / Bruguières Mairie" shortname="33" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023083020" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Arènes / Université Paul Sabatier" shortname="34" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891897" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Balma - Gramont / Drémil Stade" shortname="35" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949022374900" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Roseraie / Borderouge" shortname="36" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891898" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Jolimont / Ramonville Métro" shortname="37" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891636" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Empalot / Amouroux" shortname="38" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023200865" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Cours Dillon / Amouroux" shortname="38s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891637" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Argoulets / L'Union Somport" shortname="39" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891638" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Borderouge / L'Union Malbou" shortname="40" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891639" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Borderouge / Chaussas" shortname="41" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891640" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Jeanne d'Arc / St Jean Clinique de l'Union" shortname="42" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891895" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Argoulets / St Jean Clinique de l'Union" shortname="43" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023200855" color="(0,64,196)" bgxmlcolor="#0040c4" fgxmlcolor="#FFFFFF" name="Jeanne d'Arc / Borderouge" shortname="44" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949024910297" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Jeanne d'Arc / Pelletier Purpan" shortname="45" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891641" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Arènes / Pelletier Purpan" shortname="46" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891642" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Basso Cambo / Portet Gare SNCF ou Lycée Polyvalent" shortname="47" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891643" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Basso Cambo / La Ramée" shortname="48" network="Tisséo"></line>
+   <line id="11821949021891644" color="(0,64,196)" bgxmlcolor="#0040c4" fgxmlcolor="#FFFFFF" name="Basso Cambo / Portet Gare SNCF" shortname="49" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891645" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Basso Cambo / Portet H. Boucher ou Roques Acacias" shortname="50" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891646" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Balma - Gramont / La Terrasse" shortname="51" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891647" color="(86,63,0)" bgxmlcolor="#563f00" fgxmlcolor="#FFFFFF" name="Empalot / Roquettes église ou Pinsaguel mairie" shortname="52" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821953316814850" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Basso Cambo / Tibaous" shortname="53" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891649" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Empalot / Gleyze-Vieille" shortname="54" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891650" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Colomiers Gare SNCF / Plaisance Monestié" shortname="55" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891651" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / Auzeville Église" shortname="56" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891652" color="(86,63,0)" bgxmlcolor="#563f00" fgxmlcolor="#FFFFFF" name="Basso Cambo / Frouzins JP Sabatier" shortname="57" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891653" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Basso Cambo / Muret Lycée" shortname="58" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891654" color="(102,0,153)" bgxmlcolor="#660099" fgxmlcolor="#FFFFFF" name="La Vache / Lespinasse Mairie" shortname="59" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891655" color="(102,0,153)" bgxmlcolor="#660099" fgxmlcolor="#FFFFFF" name="La Vache / Castelginest Buffebiau" shortname="60" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891656" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Trois Cocus / Fonbeauzard Mairie, Montberon ou St Loup" shortname="61" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891657" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Ramonville Métro / Castanet-Tolosan" shortname="62" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949024740620" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Compans - Caffarelli / Tournefeuille Lycée" shortname="63" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891659" color="(86,63,0)" bgxmlcolor="#563f00" fgxmlcolor="#FFFFFF" name="Arènes / Colomiers Lycée International" shortname="64" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891660" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="Arènes / Plaisance Monestié (par D632)" shortname="65" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891661" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="St Cyprien - République / Aéroport Toulouse Blagnac" shortname="66" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891662" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Arènes / Plaisance Monestié (par Marquisat)" shortname="67" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891663" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Ramonville Métro / La Terrasse" shortname="68" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891664" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="La Vache / Gratentour Gravette ou Bruguières" shortname="69" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891665" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Jeanne d'Arc / Aéroconstellation" shortname="70" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891666" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Andromède - Lycée / Aussonne Agassines" shortname="71" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891667" color="(0,64,196)" bgxmlcolor="#0040c4" fgxmlcolor="#FFFFFF" name="Balma - Gramont / Balma Lasbordes" shortname="72" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891668" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Borderouge / St Jean Lestang" shortname="73" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891669" color="(86,63,0)" bgxmlcolor="#563f00" fgxmlcolor="#FFFFFF" name="Balma - Gramont / Rouffiac-Tolosan" shortname="74" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891670" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="Argoulets / Castelmaurou Mairie" shortname="75" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891671" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Argoulets / Lapeyrouse" shortname="76" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891672" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Balma - Gramont / Fonsegrives Collège" shortname="77" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891673" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / St Orens Lycée" shortname="78" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821953316814852" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / St Orens Lycée" shortname="78s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891674" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Ramonville Métro / Labège Couder ou St-Orens Lycée" shortname="79" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949024202292" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / St-Orens Lycée" shortname="79s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891675" color="(102,0,153)" bgxmlcolor="#660099" fgxmlcolor="#FFFFFF" name="Rangueil / Belberaud La Balme" shortname="80" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891682" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / Castanet-Tolosan" shortname="81" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023798567" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / Castanet -Tolosan" shortname="81s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891683" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / Ramonville Midiville" shortname="82" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891684" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Balma - Gramont / St Orens Lycée" shortname="83" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821953316814851" color="(51,255,255)" bgxmlcolor="#33ffff" fgxmlcolor="#FFFFFF" name="Balma - Gramont / Balma Bicentenaire" shortname="84" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821953316814855" color="(0,64,196)" bgxmlcolor="#0040c4" fgxmlcolor="#FFFFFF" name="Lycée Polyvalent / Cugnaux Henry Galdi" shortname="87" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023946608" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="Ramonville Métro / Hôpital Larrey" shortname="88" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949024037461" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / CHR Rangueil" shortname="88s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949022345006" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Malepère / Castanet-Tolosan" shortname="109" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023707108" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Barrière de Paris / Glacière Sesquières" shortname="110" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023706503" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Ramonville Métro / Théogone / Ramonville Métro" shortname="111" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023742784" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Ramonville Métro / Montjoie" shortname="112" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949025413197" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Pechbonnieu Collège / Fenouillet Croix" shortname="113" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023946609" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Borderouge / Quartier Virebent" shortname="114" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949023946612" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="St Agne - Gare SNCF / Pech David" shortname="115" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949025413199" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Tournefeuille Lycée / Saint Lys Piscine" shortname="116" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949025413198" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Potier Oncopole / Gare Muret SNCF" shortname="117" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821953316814856" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Liaison Oncopole" shortname="140" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+   </line>
+   <line id="11821949021891899" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="La Vache / St Jory" shortname="105" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+   </line>
+   <line id="11821949021891900" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Balma-Gramont / Aigrefeuille - Balma - Drémil Lafage - Flourens -  Mondouzil - Mons - Pin Balma - Quint Fonsegrives" shortname="106" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+   </line>
+   <line id="11821949023946610" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Colomiers Gare SNCF / Aussonne - Cornebarrieu - Mondonville" shortname="118" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+   </line>
+   <line id="11821949024259575" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Ramonville Métro / Aureville - Castanet Tolosan - Goyrans - Lacroix Falgarde - Mervilla - Pechbusque - Ramonville St Agne - Rebigue - Vieille Toulouse - Vigoulet Auzil" shortname="119" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+   </line>
+   <line id="11821949024875466" color="(0,64,196)" bgxmlcolor="#0040c4" fgxmlcolor="#FFFFFF" name="Aéroconstellation / Aussonne - Beauzelle - Cornebarrieu - Mondonville - Seilh" shortname="120" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+   </line>
+   <line id="11821949021891677" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Saint Orens Lycée / Varennes En Clavié" shortname="201" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+   </line>
+   <line id="11821949021891678" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Castanet Tolosan / Montbrun Lauragais Roumieu" shortname="202" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+   </line>
+   <line id="11821949021891680" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Labège Innopole Gare SNCF / Ayguesvives Collège" shortname="204" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+   </line>
+   <line id="11821949021891681" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Castanet Tolosan / Ayguesvives Collège" shortname="205" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+   </line>
+</lines></p>
+
+<p><code>
+### Requête option **displayTerminus = 1** en XML
+</code> xml
+<?xml version="1.0" encoding="UTF-8"?>
+<lines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expirationdate="2014-05-21 03:45" xsi:nonamespaceschemalocation="http://cimm.tisseo.fr/xsd/LinesList.xsd">
+   <line id="11821949021891694" color="(255,0,0)" bgxmlcolor="#ff0000" fgxmlcolor="#FFFFFF" name="Basso Cambo / Balma - Gramont" shortname="A" network="Tisséo">
+      <transportmode id="13792273858822586" article="le" name="métro"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324837185612" cityname="BALMA" name="Balma-Gramont"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021892004" color="(255,255,0)" bgxmlcolor="#ffff00" fgxmlcolor="#000000" name="Borderouge / Ramonville" shortname="B" network="Tisséo">
+      <transportmode id="13792273858822586" article="le" name="métro"></transportmode>
+      <terminus>
+         <stoparea id="1970324837501997" cityname="TOULOUSE" name="Borderouge"></stoparea>
+         <stoparea id="1970324838348800" cityname="RAMONVILLE-SAINT-AGNE" name="Ramonville Métro"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021892003" color="(0,64,196)" bgxmlcolor="#0040c4" fgxmlcolor="#FFFFFF" name="Aéroconstellation / Palais de Justice" shortname="T1" network="Tisséo">
+      <transportmode id="13792273858822588" article="le" name="tramway"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184792" cityname="TOULOUSE" name="Palais de Justice"></stoparea>
+         <stoparea id="1970324837184714" cityname="TOULOUSE" name="Arènes"></stoparea>
+         <stoparea id="1970324837190628" cityname="BEAUZELLE" name="Aéroconstellation"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891902" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Navette Aéroport" shortname="AERO" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184612" cityname="BLAGNAC" name="Aéroport Toulouse-Blagnac"></stoparea>
+         <stoparea id="1970324840530380" cityname="TOULOUSE" name="Gare routière"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821953316814854" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Navette Cimetières" shortname="CIMTR" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185002" cityname="TOULOUSE" name="Jolimont"></stoparea>
+         <stoparea id="1970329131942124" cityname="CORNEBARRIEU" name="Secteur A"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891634" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Navette Parc des Expositions" shortname="EXPO" network="Tisséo"></line>
+   <line id="11821949025413195" color="(227,0,68)" bgxmlcolor="#e30044" fgxmlcolor="#FFFFFF" name="Noctambus" shortname="NOCT" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324838348800" cityname="RAMONVILLE-SAINT-AGNE" name="Ramonville Métro"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821953316814853" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Navette Centre Ville" shortname="VILLE" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184995" cityname="TOULOUSE" name="Cours Dillon"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891625" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Sept Deniers / Gymnase de l'Hers" shortname="L16" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324840530377" cityname="TOULOUSE" name="Sept Deniers"></stoparea>
+         <stoparea id="1970324840530397" cityname="TOULOUSE" name="Gymnase de L'Hers"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891615" color="(86,63,0)" bgxmlcolor="#563f00" fgxmlcolor="#FFFFFF" name="Grand Rond / Compans - Caffarelli" shortname="1" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184671" cityname="TOULOUSE" name="Compans - Caffarelli"></stoparea>
+         <stoparea id="1970324837184947" cityname="TOULOUSE" name="Grand Rond"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891616" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Cours Dillon / Université Paul Sabatier" shortname="2" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185012" cityname="TOULOUSE" name="Université Paul Sabatier"></stoparea>
+         <stoparea id="1970324837184995" cityname="TOULOUSE" name="Cours Dillon"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023200859" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Cours Dillon / Université Paul Sabatier" shortname="2s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185012" cityname="TOULOUSE" name="Université Paul Sabatier"></stoparea>
+         <stoparea id="1970324837184995" cityname="TOULOUSE" name="Cours Dillon"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891617" color="(102,0,153)" bgxmlcolor="#660099" fgxmlcolor="#FFFFFF" name="St Cyprien - République / Oncopole" shortname="3" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184772" cityname="TOULOUSE" name="Saint Cyprien - République"></stoparea>
+         <stoparea id="1970324839361574" cityname="TOULOUSE" name="Oncopole"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891618" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Basso Cambo / Lycée Polyvalent" shortname="8" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324837184900" cityname="TOULOUSE" name="Lycée Polyvalent"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891619" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Cours Dillon / Malepère" shortname="10" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184995" cityname="TOULOUSE" name="Cours Dillon"></stoparea>
+         <stoparea id="1970324837186852" cityname="TOULOUSE" name="Malepère"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891676" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Cours Dillon / Malepère" shortname="10s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184995" cityname="TOULOUSE" name="Cours Dillon"></stoparea>
+         <stoparea id="1970324837186852" cityname="TOULOUSE" name="Malepère"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821953316814849" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Basso Cambo / Saint - Agne SNCF" shortname="11" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324837184617" cityname="TOULOUSE" name="Saint Agne-SNCF"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891621" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Cours Dillon / Basso Cambo" shortname="12" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324837184995" cityname="TOULOUSE" name="Cours Dillon"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023200862" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Cours Dillon / Basso Cambo" shortname="12s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324837184995" cityname="TOULOUSE" name="Cours Dillon"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891623" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="Matabiau - Marengo SNCF / Basso Cambo" shortname="14" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324837184594" cityname="TOULOUSE" name="Marengo-SNCF"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891624" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Jeanne d'Arc / États-Unis Fondeyre" shortname="15" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184932" cityname="TOULOUSE" name="Jeanne d'Arc"></stoparea>
+         <stoparea id="1970324837185381" cityname="TOULOUSE" name="Etats-Unis Fondeyre"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891628" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Andromède - Lycée / Mondonville Église" shortname="17" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837190352" cityname="MONDONVILLE" name="Mondonville Eglise"></stoparea>
+         <stoparea id="1970324837343242" cityname="BLAGNAC" name="Andromède-Lycée"></stoparea>
+         <stoparea id="1970324839976619" cityname="BLAGNAC" name="Collège Mermoz"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891627" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Borderouge / Place de l'indépendance" shortname="19" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837501997" cityname="TOULOUSE" name="Borderouge"></stoparea>
+         <stoparea id="1970324837185382" cityname="TOULOUSE" name="Place de l'Indépendance"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891629" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Balma - Gramont / Beaupuy Mairie" shortname="20" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185612" cityname="BALMA" name="Balma-Gramont"></stoparea>
+         <stoparea id="1970329131942100" cityname="BEAUPUY" name="Beaupuy Mairie"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949022509040" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Basso Cambo / Colomiers Airbus" shortname="21" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324837185136" cityname="COLOMIERS" name="Colomiers Relais Bus"></stoparea>
+         <stoparea id="1970324837189829" cityname="COLOMIERS" name="Colomiers Airbus"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891631" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Matabiau - Marengo SNCF / Gonin" shortname="22" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184594" cityname="TOULOUSE" name="Marengo-SNCF"></stoparea>
+         <stoparea id="1970324837184674" cityname="TOULOUSE" name="Gonin"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023200864" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Matabiau - Marengo SNCF / Gonin" shortname="22s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184594" cityname="TOULOUSE" name="Marengo-SNCF"></stoparea>
+         <stoparea id="1970324837184674" cityname="TOULOUSE" name="Gonin"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023193145" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Jeanne d'Arc / Rangueil" shortname="23" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184932" cityname="TOULOUSE" name="Jeanne d'Arc"></stoparea>
+         <stoparea id="1970324838318954" cityname="TOULOUSE" name="Rangueil"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023989725" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="Blagnac E Zola / Aéroport Toulouse Blagnac" shortname="25" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184612" cityname="BLAGNAC" name="Aéroport Toulouse-Blagnac"></stoparea>
+         <stoparea id="1970324838348836" cityname="BLAGNAC" name="Blagnac Emile Zola"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023200852" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Borderouge / Launaguet Palanque" shortname="26" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837501997" cityname="TOULOUSE" name="Borderouge"></stoparea>
+         <stoparea id="1970324837184973" cityname="LAUNAGUET" name="Launaguet Palanque"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023200854" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Lycée Toulouse-Lautrec / Rangueil" shortname="27" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837186162" cityname="TOULOUSE" name="Lycée Toulouse-Lautrec"></stoparea>
+         <stoparea id="1970324838318954" cityname="TOULOUSE" name="Rangueil"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023743333" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Grand Rond / La Vache" shortname="29" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184947" cityname="TOULOUSE" name="Grand Rond"></stoparea>
+         <stoparea id="1970324838319080" cityname="TOULOUSE" name="La Vache"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949024885921" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Aéroport Toulouse Blagnac / Fenouillet Ctre Cial" shortname="30" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184612" cityname="BLAGNAC" name="Aéroport Toulouse-Blagnac"></stoparea>
+         <stoparea id="1970324837185047" cityname="FENOUILLET" name="Centre Commercial Fenouillet"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891635" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Colomiers Gare SNCF / Brax le Château" shortname="32" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184752" cityname="COLOMIERS" name="Colomiers Gare SNCF"></stoparea>
+         <stoparea id="1970324837185068" cityname="BRAX" name="Brax le Château"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891896" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Argoulets / Bruguières Mairie" shortname="33" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837186460" cityname="BRUGUIERES" name="Bruguières Mairie"></stoparea>
+         <stoparea id="1970324837190453" cityname="TOULOUSE" name="Argoulets"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023083020" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Arènes / Université Paul Sabatier" shortname="34" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185012" cityname="TOULOUSE" name="Université Paul Sabatier"></stoparea>
+         <stoparea id="1970324837184714" cityname="TOULOUSE" name="Arènes"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891897" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Balma - Gramont / Drémil Stade" shortname="35" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185612" cityname="BALMA" name="Balma-Gramont"></stoparea>
+         <stoparea id="1970324837190546" cityname="DREMIL-LAFAGE" name="Drémil Stade"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949022374900" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Roseraie / Borderouge" shortname="36" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185603" cityname="TOULOUSE" name="Roseraie"></stoparea>
+         <stoparea id="1970324837501997" cityname="TOULOUSE" name="Borderouge"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891898" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Jolimont / Ramonville Métro" shortname="37" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185002" cityname="TOULOUSE" name="Jolimont"></stoparea>
+         <stoparea id="1970324838348800" cityname="RAMONVILLE-SAINT-AGNE" name="Ramonville Métro"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891636" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Empalot / Amouroux" shortname="38" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185353" cityname="TOULOUSE" name="Amouroux"></stoparea>
+         <stoparea id="1970324837186130" cityname="TOULOUSE" name="Empalot"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023200865" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Cours Dillon / Amouroux" shortname="38s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184995" cityname="TOULOUSE" name="Cours Dillon"></stoparea>
+         <stoparea id="1970324837185353" cityname="TOULOUSE" name="Amouroux"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891637" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Argoulets / L'Union Somport" shortname="39" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184918" cityname="L'UNION" name="L'Union Somport"></stoparea>
+         <stoparea id="1970324837190453" cityname="TOULOUSE" name="Argoulets"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891638" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Borderouge / L'Union Malbou" shortname="40" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837501997" cityname="TOULOUSE" name="Borderouge"></stoparea>
+         <stoparea id="1970324837184929" cityname="L'UNION" name="L'Union Malbou"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891639" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Borderouge / Chaussas" shortname="41" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837501997" cityname="TOULOUSE" name="Borderouge"></stoparea>
+         <stoparea id="1970324837184635" cityname="TOULOUSE" name="Chaussas"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891640" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Jeanne d'Arc / St Jean Clinique de l'Union" shortname="42" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184932" cityname="TOULOUSE" name="Jeanne d'Arc"></stoparea>
+         <stoparea id="1970324837184935" cityname="SAINT-JEAN" name="Saint Jean Clinique de l'Union"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891895" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Argoulets / St Jean Clinique de l'Union" shortname="43" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184932" cityname="TOULOUSE" name="Jeanne d'Arc"></stoparea>
+         <stoparea id="1970324837184935" cityname="SAINT-JEAN" name="Saint Jean Clinique de l'Union"></stoparea>
+         <stoparea id="1970324837186135" cityname="TOULOUSE" name="Lycée Raymond Naves"></stoparea>
+         <stoparea id="1970324837190453" cityname="TOULOUSE" name="Argoulets"></stoparea>
+         <stoparea id="1970324837394073" cityname="SAINT-JEAN" name="Collège St Jean"></stoparea>
+         <stoparea id="1970324840530366" cityname="SAINT-JEAN" name="François Mitterrand"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023200855" color="(0,64,196)" bgxmlcolor="#0040c4" fgxmlcolor="#FFFFFF" name="Jeanne d'Arc / Borderouge" shortname="44" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184932" cityname="TOULOUSE" name="Jeanne d'Arc"></stoparea>
+         <stoparea id="1970324837501997" cityname="TOULOUSE" name="Borderouge"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949024910297" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Jeanne d'Arc / Pelletier Purpan" shortname="45" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184677" cityname="TOULOUSE" name="Pelletier Purpan"></stoparea>
+         <stoparea id="1970324837184932" cityname="TOULOUSE" name="Jeanne d'Arc"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891641" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Arènes / Pelletier Purpan" shortname="46" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184677" cityname="TOULOUSE" name="Pelletier Purpan"></stoparea>
+         <stoparea id="1970324837184714" cityname="TOULOUSE" name="Arènes"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891642" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Basso Cambo / Portet Gare SNCF ou Lycée Polyvalent" shortname="47" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324837184685" cityname="PORTET-SUR-GARONNE" name="Portet Gare SNCF"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891643" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Basso Cambo / La Ramée" shortname="48" network="Tisséo"></line>
+   <line id="11821949021891644" color="(0,64,196)" bgxmlcolor="#0040c4" fgxmlcolor="#FFFFFF" name="Basso Cambo / Portet Gare SNCF" shortname="49" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324837184685" cityname="PORTET-SUR-GARONNE" name="Portet Gare SNCF"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891645" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Basso Cambo / Portet H. Boucher ou Roques Acacias" shortname="50" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324837185015" cityname="PORTET-SUR-GARONNE" name="Portet H. Boucher"></stoparea>
+         <stoparea id="1970324837185082" cityname="ROQUES" name="Roques Acacias"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891646" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Balma - Gramont / La Terrasse" shortname="51" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185612" cityname="BALMA" name="Balma-Gramont"></stoparea>
+         <stoparea id="1970329131942063" cityname="TOULOUSE" name="La Terrasse"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891647" color="(86,63,0)" bgxmlcolor="#563f00" fgxmlcolor="#FFFFFF" name="Empalot / Roquettes église ou Pinsaguel mairie" shortname="52" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837186130" cityname="TOULOUSE" name="Empalot"></stoparea>
+         <stoparea id="1970324837185015" cityname="PORTET-SUR-GARONNE" name="Portet H. Boucher"></stoparea>
+         <stoparea id="1970324837185081" cityname="ROQUETTES" name="Roquettes Eglise"></stoparea>
+         <stoparea id="1970324837185085" cityname="PINSAGUEL" name="Pinsaguel Tilleuls"></stoparea>
+         <stoparea id="1970324839361574" cityname="TOULOUSE" name="Oncopole"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821953316814850" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Basso Cambo / Tibaous" shortname="53" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324837184900" cityname="TOULOUSE" name="Lycée Polyvalent"></stoparea>
+         <stoparea id="1970329131941949" cityname="TOULOUSE" name="Tibaous"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891649" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Empalot / Gleyze-Vieille" shortname="54" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837186130" cityname="TOULOUSE" name="Empalot"></stoparea>
+         <stoparea id="1970324837185356" cityname="RAMONVILLE-SAINT-AGNE" name="Gleyze-Vieille"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891650" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Colomiers Gare SNCF / Plaisance Monestié" shortname="55" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184752" cityname="COLOMIERS" name="Colomiers Gare SNCF"></stoparea>
+         <stoparea id="1970324837185061" cityname="PLAISANCE-DU-TOUCH" name="Plaisance Monestié"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891651" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / Auzeville Église" shortname="56" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185012" cityname="TOULOUSE" name="Université Paul Sabatier"></stoparea>
+         <stoparea id="1970324837185360" cityname="AUZEVILLE-TOLOSANE" name="Auzeville Eglise"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891652" color="(86,63,0)" bgxmlcolor="#563f00" fgxmlcolor="#FFFFFF" name="Basso Cambo / Frouzins JP Sabatier" shortname="57" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324839002683" cityname="FROUZINS" name="Frouzins JP Sabatier"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891653" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Basso Cambo / Muret Lycée" shortname="58" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184808" cityname="TOULOUSE" name="Basso Cambo"></stoparea>
+         <stoparea id="1970324837185078" cityname="MURET" name="Muret Lycée"></stoparea>
+         <stoparea id="1970324837185377" cityname="SEYSSES" name="Seysses Gay"></stoparea>
+         <stoparea id="1970324837190290" cityname="SEYSSES" name="Seysses Maison d'Arrêt"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891654" color="(102,0,153)" bgxmlcolor="#660099" fgxmlcolor="#FFFFFF" name="La Vache / Lespinasse Mairie" shortname="59" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837186162" cityname="TOULOUSE" name="Lycée Toulouse-Lautrec"></stoparea>
+         <stoparea id="1970324837184988" cityname="FENOUILLET" name="Fenouillet Croix"></stoparea>
+         <stoparea id="1970324837184990" cityname="LESPINASSE" name="Lespinasse Mairie"></stoparea>
+         <stoparea id="1970324837186396" cityname="GAGNAC-SUR-GARONNE" name="Gagnac Acacias"></stoparea>
+         <stoparea id="1970324838319080" cityname="TOULOUSE" name="La Vache"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891655" color="(102,0,153)" bgxmlcolor="#660099" fgxmlcolor="#FFFFFF" name="La Vache / Castelginest Buffebiau" shortname="60" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837186162" cityname="TOULOUSE" name="Lycée Toulouse-Lautrec"></stoparea>
+         <stoparea id="1970324837184985" cityname="CASTELGINEST" name="Castelginest Buffebiau"></stoparea>
+         <stoparea id="1970324838319080" cityname="TOULOUSE" name="La Vache"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891656" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Trois Cocus / Fonbeauzard Mairie, Montberon ou St Loup" shortname="61" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837186162" cityname="TOULOUSE" name="Lycée Toulouse-Lautrec"></stoparea>
+         <stoparea id="1970324837184978" cityname="MONTBERON" name="Montberon Mairie"></stoparea>
+         <stoparea id="1970324837184958" cityname="TOULOUSE" name="Trois Cocus"></stoparea>
+         <stoparea id="1970324837190521" cityname="FONBEAUZARD" name="Fonbeauzard Mairie"></stoparea>
+         <stoparea id="1970324840530367" cityname="SAINT-LOUP-CAMMAS" name="Saint Loup"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891657" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Ramonville Métro / Castanet-Tolosan" shortname="62" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324838348800" cityname="RAMONVILLE-SAINT-AGNE" name="Ramonville Métro"></stoparea>
+         <stoparea id="1970324838561174" cityname="CASTANET-TOLOSAN" name="Castanet-Tolosan"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949024740620" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Compans - Caffarelli / Tournefeuille Lycée" shortname="63" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184671" cityname="TOULOUSE" name="Compans - Caffarelli"></stoparea>
+         <stoparea id="1970324838561171" cityname="TOURNEFEUILLE" name="Tournefeuille Lycée"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891659" color="(86,63,0)" bgxmlcolor="#563f00" fgxmlcolor="#FFFFFF" name="Arènes / Colomiers Lycée International" shortname="64" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184714" cityname="TOULOUSE" name="Arènes"></stoparea>
+         <stoparea id="1970324837186529" cityname="TOULOUSE" name="Lemire"></stoparea>
+         <stoparea id="1970324838348834" cityname="COLOMIERS" name="Colomiers Lycée International"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891660" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="Arènes / Plaisance Monestié (par D632)" shortname="65" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184714" cityname="TOULOUSE" name="Arènes"></stoparea>
+         <stoparea id="1970324837185061" cityname="PLAISANCE-DU-TOUCH" name="Plaisance Monestié"></stoparea>
+         <stoparea id="1970324838561171" cityname="TOURNEFEUILLE" name="Tournefeuille Lycée"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891661" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="St Cyprien - République / Aéroport Toulouse Blagnac" shortname="66" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184772" cityname="TOULOUSE" name="Saint Cyprien - République"></stoparea>
+         <stoparea id="1970324837184612" cityname="BLAGNAC" name="Aéroport Toulouse-Blagnac"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891662" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Arènes / Plaisance Monestié (par Marquisat)" shortname="67" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184714" cityname="TOULOUSE" name="Arènes"></stoparea>
+         <stoparea id="1970324837185061" cityname="PLAISANCE-DU-TOUCH" name="Plaisance Monestié"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891663" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Ramonville Métro / La Terrasse" shortname="68" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324838348800" cityname="RAMONVILLE-SAINT-AGNE" name="Ramonville Métro"></stoparea>
+         <stoparea id="1970329131942063" cityname="TOULOUSE" name="La Terrasse"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891664" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="La Vache / Gratentour Gravette ou Bruguières" shortname="69" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837186162" cityname="TOULOUSE" name="Lycée Toulouse-Lautrec"></stoparea>
+         <stoparea id="1970324837184984" cityname="GRATENTOUR" name="Gratentour Gravette"></stoparea>
+         <stoparea id="1970324837184987" cityname="BRUGUIERES" name="Bruguières"></stoparea>
+         <stoparea id="1970324838319080" cityname="TOULOUSE" name="La Vache"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891665" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Jeanne d'Arc / Aéroconstellation" shortname="70" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184932" cityname="TOULOUSE" name="Jeanne d'Arc"></stoparea>
+         <stoparea id="1970324837190628" cityname="BEAUZELLE" name="Aéroconstellation"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891666" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Andromède - Lycée / Aussonne Agassines" shortname="71" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837190361" cityname="AUSSONNE" name="Aussonne Agassines"></stoparea>
+         <stoparea id="1970324837343242" cityname="BLAGNAC" name="Andromède-Lycée"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891667" color="(0,64,196)" bgxmlcolor="#0040c4" fgxmlcolor="#FFFFFF" name="Balma - Gramont / Balma Lasbordes" shortname="72" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185612" cityname="BALMA" name="Balma-Gramont"></stoparea>
+         <stoparea id="1970324837185368" cityname="BALMA" name="Balma Lasbordes"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891668" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Borderouge / St Jean Lestang" shortname="73" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837501997" cityname="TOULOUSE" name="Borderouge"></stoparea>
+         <stoparea id="1970324837184936" cityname="SAINT-JEAN" name="Saint Jean Lestang"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891669" color="(86,63,0)" bgxmlcolor="#563f00" fgxmlcolor="#FFFFFF" name="Balma - Gramont / Rouffiac-Tolosan" shortname="74" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185612" cityname="BALMA" name="Balma-Gramont"></stoparea>
+         <stoparea id="1970324837184939" cityname="ROUFFIAC-TOLOSAN" name="Rouffiac-Tolosan"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891670" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="Argoulets / Castelmaurou Mairie" shortname="75" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185193" cityname="CASTELMAUROU" name="Castelmaurou Mairie"></stoparea>
+         <stoparea id="1970324837184941" cityname="LAPEYROUSE-FOSSAT" name="Lapeyrouse"></stoparea>
+         <stoparea id="1970324837186135" cityname="TOULOUSE" name="Lycée Raymond Naves"></stoparea>
+         <stoparea id="1970324837190453" cityname="TOULOUSE" name="Argoulets"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891671" color="(142,74,5)" bgxmlcolor="#8e4a05" fgxmlcolor="#FFFFFF" name="Argoulets / Lapeyrouse" shortname="76" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184941" cityname="LAPEYROUSE-FOSSAT" name="Lapeyrouse"></stoparea>
+         <stoparea id="1970324837190453" cityname="TOULOUSE" name="Argoulets"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891672" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Balma - Gramont / Fonsegrives Collège" shortname="77" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185612" cityname="BALMA" name="Balma-Gramont"></stoparea>
+         <stoparea id="1970324837190645" cityname="QUINT-FONSEGRIVES" name="Fonsegrives Collège"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891673" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / St Orens Lycée" shortname="78" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185012" cityname="TOULOUSE" name="Université Paul Sabatier"></stoparea>
+         <stoparea id="1970324837185279" cityname="SAINT-ORENS-DE-GAMEVILLE" name="Saint Orens Lycée"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821953316814852" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / St Orens Lycée" shortname="78s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185012" cityname="TOULOUSE" name="Université Paul Sabatier"></stoparea>
+         <stoparea id="1970324837185279" cityname="SAINT-ORENS-DE-GAMEVILLE" name="Saint Orens Lycée"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891674" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Ramonville Métro / Labège Couder ou St-Orens Lycée" shortname="79" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837186862" cityname="LABEGE" name="Périgord"></stoparea>
+         <stoparea id="1970324838348800" cityname="RAMONVILLE-SAINT-AGNE" name="Ramonville Métro"></stoparea>
+         <stoparea id="1970324837185279" cityname="SAINT-ORENS-DE-GAMEVILLE" name="Saint Orens Lycée"></stoparea>
+         <stoparea id="1970324837185316" cityname="LABEGE" name="Labège Couder"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949024202292" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / St-Orens Lycée" shortname="79s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185012" cityname="TOULOUSE" name="Université Paul Sabatier"></stoparea>
+         <stoparea id="1970324837185279" cityname="SAINT-ORENS-DE-GAMEVILLE" name="Saint Orens Lycée"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891675" color="(102,0,153)" bgxmlcolor="#660099" fgxmlcolor="#FFFFFF" name="Rangueil / Belberaud La Balme" shortname="80" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324838318954" cityname="TOULOUSE" name="Rangueil"></stoparea>
+         <stoparea id="1970329131942087" cityname="BELBERAUD" name="Belberaud La Balme"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891682" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / Castanet-Tolosan" shortname="81" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185012" cityname="TOULOUSE" name="Université Paul Sabatier"></stoparea>
+         <stoparea id="1970324838561174" cityname="CASTANET-TOLOSAN" name="Castanet-Tolosan"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023798567" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / Castanet -Tolosan" shortname="81s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185012" cityname="TOULOUSE" name="Université Paul Sabatier"></stoparea>
+         <stoparea id="1970324838561174" cityname="CASTANET-TOLOSAN" name="Castanet-Tolosan"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891683" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / Ramonville Midiville" shortname="82" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185012" cityname="TOULOUSE" name="Université Paul Sabatier"></stoparea>
+         <stoparea id="1970324837185374" cityname="RAMONVILLE-SAINT-AGNE" name="Ramonville Port Sud"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891684" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Balma - Gramont / St Orens Lycée" shortname="83" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185612" cityname="BALMA" name="Balma-Gramont"></stoparea>
+         <stoparea id="1970324837185279" cityname="SAINT-ORENS-DE-GAMEVILLE" name="Saint Orens Lycée"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821953316814851" color="(51,255,255)" bgxmlcolor="#33ffff" fgxmlcolor="#FFFFFF" name="Balma - Gramont / Balma Bicentenaire" shortname="84" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185612" cityname="BALMA" name="Balma-Gramont"></stoparea>
+         <stoparea id="1970324837189279" cityname="BALMA" name="Balma Bicentenaire"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821953316814855" color="(0,64,196)" bgxmlcolor="#0040c4" fgxmlcolor="#FFFFFF" name="Lycée Polyvalent / Cugnaux Henry Galdi" shortname="87" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184900" cityname="TOULOUSE" name="Lycée Polyvalent"></stoparea>
+         <stoparea id="1970329131942128" cityname="CUGNAUX" name="Cugnaux Henry Gladi"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023946608" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="Ramonville Métro / Hôpital Larrey" shortname="88" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185012" cityname="TOULOUSE" name="Université Paul Sabatier"></stoparea>
+         <stoparea id="1970324838348800" cityname="RAMONVILLE-SAINT-AGNE" name="Ramonville Métro"></stoparea>
+         <stoparea id="1970324837448244" cityname="TOULOUSE" name="Hôpital Larrey"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949024037461" color="(178,145,255)" bgxmlcolor="#b291ff" fgxmlcolor="#FFFFFF" name="Université Paul Sabatier / CHR Rangueil" shortname="88s" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184793" cityname="TOULOUSE" name="CHR Rangueil"></stoparea>
+         <stoparea id="1970324837185012" cityname="TOULOUSE" name="Université Paul Sabatier"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949022345006" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Malepère / Castanet-Tolosan" shortname="109" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324838561174" cityname="CASTANET-TOLOSAN" name="Castanet-Tolosan"></stoparea>
+         <stoparea id="1970324837186852" cityname="TOULOUSE" name="Malepère"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023707108" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Barrière de Paris / Glacière Sesquières" shortname="110" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185046" cityname="TOULOUSE" name="Barrière de Paris"></stoparea>
+         <stoparea id="1970324838834159" cityname="TOULOUSE" name="Glacière Sesquières"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023706503" color="(244,0,208)" bgxmlcolor="#f400d0" fgxmlcolor="#FFFFFF" name="Ramonville Métro / Théogone / Ramonville Métro" shortname="111" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184716" cityname="RAMONVILLE-SAINT-AGNE" name="Théogone"></stoparea>
+         <stoparea id="1970324838348800" cityname="RAMONVILLE-SAINT-AGNE" name="Ramonville Métro"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023742784" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Ramonville Métro / Montjoie" shortname="112" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324838348800" cityname="RAMONVILLE-SAINT-AGNE" name="Ramonville Métro"></stoparea>
+         <stoparea id="1970324838869897" cityname="RAMONVILLE-SAINT-AGNE" name="Montjoie"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949025413197" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Pechbonnieu Collège / Fenouillet Croix" shortname="113" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184988" cityname="FENOUILLET" name="Fenouillet Croix"></stoparea>
+         <stoparea id="1970324837337554" cityname="PECHBONNIEU" name="Collège Pechbonnieu"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023946609" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Borderouge / Quartier Virebent" shortname="114" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837501997" cityname="TOULOUSE" name="Borderouge"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023946612" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="St Agne - Gare SNCF / Pech David" shortname="115" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184617" cityname="TOULOUSE" name="Saint Agne-SNCF"></stoparea>
+         <stoparea id="1970324839164068" cityname="TOULOUSE" name="Pech David"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949025413199" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Tournefeuille Lycée / Saint Lys Piscine" shortname="116" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324838561171" cityname="TOURNEFEUILLE" name="Tournefeuille Lycée"></stoparea>
+         <stoparea id="1970324840530416" cityname="SAINT-LYS" name="Saint Lys Piscine"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949025413198" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Potier Oncopole / Gare Muret SNCF" shortname="117" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184595" cityname="MURET" name="Muret Gare SNCF"></stoparea>
+         <stoparea id="1970324840530412" cityname="TOULOUSE" name="Potier Oncopole"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821953316814856" color="(0,198,45)" bgxmlcolor="#00c62d" fgxmlcolor="#FFFFFF" name="Liaison Oncopole" shortname="140" network="Tisséo">
+      <transportmode id="13792273858822585" article="le" name="bus"></transportmode>
+      <terminus>
+         <stoparea id="1970324837186219" cityname="TOULOUSE" name="Marchant"></stoparea>
+         <stoparea id="1970324840530412" cityname="TOULOUSE" name="Potier Oncopole"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891899" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="La Vache / St Jory" shortname="105" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+      <terminus>
+         <stoparea id="1970324838319080" cityname="TOULOUSE" name="La Vache"></stoparea>
+         <stoparea id="1970324840530429" cityname="SAINT-JORY" name="Fabas"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891900" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Balma-Gramont / Aigrefeuille - Balma - Drémil Lafage - Flourens -  Mondouzil - Mons - Pin Balma - Quint Fonsegrives" shortname="106" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185612" cityname="BALMA" name="Balma-Gramont"></stoparea>
+         <stoparea id="1970324837653558" cityname="DREMIL-LAFAGE" name="Montségur"></stoparea>
+         <stoparea id="1970324838481966" cityname="QUINT-FONSEGRIVES" name="Constellations"></stoparea>
+         <stoparea id="1970324839056448" cityname="MONS" name="En Gilède"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949023946610" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Colomiers Gare SNCF / Aussonne - Cornebarrieu - Mondonville" shortname="118" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+      <terminus>
+         <stoparea id="1970324837184752" cityname="COLOMIERS" name="Colomiers Gare SNCF"></stoparea>
+         <stoparea id="1970324840001229" cityname="AUSSONNE" name="Planète"></stoparea>
+         <stoparea id="1970324840001231" cityname="AUSSONNE" name="Laurières"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949024259575" color="(255,94,22)" bgxmlcolor="#ff5e16" fgxmlcolor="#FFFFFF" name="Ramonville Métro / Aureville - Castanet Tolosan - Goyrans - Lacroix Falgarde - Mervilla - Pechbusque - Ramonville St Agne - Rebigue - Vieille Toulouse - Vigoulet Auzil" shortname="119" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+      <terminus>
+         <stoparea id="1970324838348800" cityname="RAMONVILLE-SAINT-AGNE" name="Ramonville Métro"></stoparea>
+         <stoparea id="1970324837186248" cityname="TOULOUSE" name="Escagarol"></stoparea>
+         <stoparea id="1970324837186251" cityname="VIEILLE-TOULOUSE" name="Notre Dame des Coteaux"></stoparea>
+         <stoparea id="1970324837190320" cityname="MERVILLA" name="Falcou"></stoparea>
+         <stoparea id="1970324839397483" cityname="LACROIX-FALGARDE" name="Coq"></stoparea>
+         <stoparea id="1970329131942137" cityname="CLERMONT-LE-FORT" name="Bois Grand"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949024875466" color="(0,64,196)" bgxmlcolor="#0040c4" fgxmlcolor="#FFFFFF" name="Aéroconstellation / Aussonne - Beauzelle - Cornebarrieu - Mondonville - Seilh" shortname="120" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+      <terminus>
+         <stoparea id="1970324839164194" cityname="CORNEBARRIEU" name="Syndics"></stoparea>
+         <stoparea id="1970324840001221" cityname="AUSSONNE" name="Las Planos"></stoparea>
+         <stoparea id="1970324840034506" cityname="BEAUZELLE" name="Cigognes"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891677" color="(255,168,255)" bgxmlcolor="#ffa8ff" fgxmlcolor="#FFFFFF" name="Saint Orens Lycée / Varennes En Clavié" shortname="201" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185279" cityname="SAINT-ORENS-DE-GAMEVILLE" name="Saint Orens Lycée"></stoparea>
+         <stoparea id="1970324840377831" cityname="VARENNES" name="Varennes En Clavié"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891678" color="(148,210,77)" bgxmlcolor="#94d24d" fgxmlcolor="#FFFFFF" name="Castanet Tolosan / Montbrun Lauragais Roumieu" shortname="202" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+      <terminus>
+         <stoparea id="1970324838561174" cityname="CASTANET-TOLOSAN" name="Castanet-Tolosan"></stoparea>
+         <stoparea id="1970324837190653" cityname="MONTBRUN-LAURAGAIS" name="Montbrun Lauragais Roumieu"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891680" color="(244,0,2)" bgxmlcolor="#f40002" fgxmlcolor="#FFFFFF" name="Labège Innopole Gare SNCF / Ayguesvives Collège" shortname="204" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+      <terminus>
+         <stoparea id="1970324837185293" cityname="LABEGE" name="Labège Gare SNCF Innopole"></stoparea>
+         <stoparea id="1970324837188026" cityname="AYGUESVIVES" name="Ayguevives Collège"></stoparea>
+      </terminus>
+   </line>
+   <line id="11821949021891681" color="(38,206,255)" bgxmlcolor="#26ceff" fgxmlcolor="#FFFFFF" name="Castanet Tolosan / Ayguesvives Collège" shortname="205" network="Tisséo">
+      <transportmode id="13792273858822589" article="le" name="transport à la demande"></transportmode>
+      <terminus>
+         <stoparea id="1970324838561174" cityname="CASTANET-TOLOSAN" name="Castanet-Tolosan"></stoparea>
+         <stoparea id="1970324837188026" cityname="AYGUESVIVES" name="Ayguevives Collège"></stoparea>
+      </terminus>
+   </line>
+</lines></p>
+
+<p>```
+### Requête au format JSON</p>
+
+<p><code>json
+{
+  "expirationDate": "2014-05-21 03:45",
+  "lines": {
+    "line": [
+      {
+        "color": "(255,0,0)",
+        "bgXmlColor": "#ff0000",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891694",
+        "name": "Basso Cambo / Balma - Gramont",
+        "shortName": "A",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822586",
+          "article": "le",
+          "name": "métro"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324837185612",
+            "cityName": "BALMA",
+            "name": "Balma-Gramont"
+          }
+        ]
+      },
+      {
+        "color": "(255,255,0)",
+        "bgXmlColor": "#ffff00",
+        "fgXmlColor": "#000000",
+        "id": "11821949021892004",
+        "name": "Borderouge / Ramonville",
+        "shortName": "B",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822586",
+          "article": "le",
+          "name": "métro"
+        },
+        "terminus": [
+          {
+            "id": "1970324837501997",
+            "cityName": "TOULOUSE",
+            "name": "Borderouge"
+          },
+          {
+            "id": "1970324838348800",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Ramonville Métro"
+          }
+        ]
+      },
+      {
+        "color": "(0,64,196)",
+        "bgXmlColor": "#0040c4",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021892003",
+        "name": "Aéroconstellation / Palais de Justice",
+        "shortName": "T1",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822588",
+          "article": "le",
+          "name": "tramway"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184792",
+            "cityName": "TOULOUSE",
+            "name": "Palais de Justice"
+          },
+          {
+            "id": "1970324837184714",
+            "cityName": "TOULOUSE",
+            "name": "Arènes"
+          },
+          {
+            "id": "1970324837190628",
+            "cityName": "BEAUZELLE",
+            "name": "Aéroconstellation"
+          }
+        ]
+      },
+      {
+        "color": "(255,94,22)",
+        "bgXmlColor": "#ff5e16",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891902",
+        "name": "Navette Aéroport",
+        "shortName": "AERO",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184612",
+            "cityName": "BLAGNAC",
+            "name": "Aéroport Toulouse-Blagnac"
+          },
+          {
+            "id": "1970324840530380",
+            "cityName": "TOULOUSE",
+            "name": "Gare routière"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821953316814854",
+        "name": "Navette Cimetières",
+        "shortName": "CIMTR",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185002",
+            "cityName": "TOULOUSE",
+            "name": "Jolimont"
+          },
+          {
+            "id": "1970329131942124",
+            "cityName": "CORNEBARRIEU",
+            "name": "Secteur A"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891634",
+        "name": "Navette Parc des Expositions",
+        "shortName": "EXPO",
+        "network": "Tisséo"
+      },
+      {
+        "color": "(227,0,68)",
+        "bgXmlColor": "#e30044",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949025413195",
+        "name": "Noctambus",
+        "shortName": "NOCT",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324838348800",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Ramonville Métro"
+          }
+        ]
+      },
+      {
+        "color": "(255,168,255)",
+        "bgXmlColor": "#ffa8ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821953316814853",
+        "name": "Navette Centre Ville",
+        "shortName": "VILLE",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184995",
+            "cityName": "TOULOUSE",
+            "name": "Cours Dillon"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891625",
+        "name": "Sept Deniers / Gymnase de l'Hers",
+        "shortName": "L16",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324840530377",
+            "cityName": "TOULOUSE",
+            "name": "Sept Deniers"
+          },
+          {
+            "id": "1970324840530397",
+            "cityName": "TOULOUSE",
+            "name": "Gymnase de L'Hers"
+          }
+        ]
+      },
+      {
+        "color": "(86,63,0)",
+        "bgXmlColor": "#563f00",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891615",
+        "name": "Grand Rond / Compans - Caffarelli",
+        "shortName": "1",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184671",
+            "cityName": "TOULOUSE",
+            "name": "Compans - Caffarelli"
+          },
+          {
+            "id": "1970324837184947",
+            "cityName": "TOULOUSE",
+            "name": "Grand Rond"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891616",
+        "name": "Cours Dillon / Université Paul Sabatier",
+        "shortName": "2",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185012",
+            "cityName": "TOULOUSE",
+            "name": "Université Paul Sabatier"
+          },
+          {
+            "id": "1970324837184995",
+            "cityName": "TOULOUSE",
+            "name": "Cours Dillon"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023200859",
+        "name": "Cours Dillon / Université Paul Sabatier",
+        "shortName": "2s",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185012",
+            "cityName": "TOULOUSE",
+            "name": "Université Paul Sabatier"
+          },
+          {
+            "id": "1970324837184995",
+            "cityName": "TOULOUSE",
+            "name": "Cours Dillon"
+          }
+        ]
+      },
+      {
+        "color": "(102,0,153)",
+        "bgXmlColor": "#660099",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891617",
+        "name": "St Cyprien - République / Oncopole",
+        "shortName": "3",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184772",
+            "cityName": "TOULOUSE",
+            "name": "Saint Cyprien - République"
+          },
+          {
+            "id": "1970324839361574",
+            "cityName": "TOULOUSE",
+            "name": "Oncopole"
+          }
+        ]
+      },
+      {
+        "color": "(255,94,22)",
+        "bgXmlColor": "#ff5e16",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891618",
+        "name": "Basso Cambo / Lycée Polyvalent",
+        "shortName": "8",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324837184900",
+            "cityName": "TOULOUSE",
+            "name": "Lycée Polyvalent"
+          }
+        ]
+      },
+      {
+        "color": "(0,198,45)",
+        "bgXmlColor": "#00c62d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891619",
+        "name": "Cours Dillon / Malepère",
+        "shortName": "10",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184995",
+            "cityName": "TOULOUSE",
+            "name": "Cours Dillon"
+          },
+          {
+            "id": "1970324837186852",
+            "cityName": "TOULOUSE",
+            "name": "Malepère"
+          }
+        ]
+      },
+      {
+        "color": "(0,198,45)",
+        "bgXmlColor": "#00c62d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891676",
+        "name": "Cours Dillon / Malepère",
+        "shortName": "10s",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184995",
+            "cityName": "TOULOUSE",
+            "name": "Cours Dillon"
+          },
+          {
+            "id": "1970324837186852",
+            "cityName": "TOULOUSE",
+            "name": "Malepère"
+          }
+        ]
+      },
+      {
+        "color": "(255,168,255)",
+        "bgXmlColor": "#ffa8ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821953316814849",
+        "name": "Basso Cambo / Saint - Agne SNCF",
+        "shortName": "11",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324837184617",
+            "cityName": "TOULOUSE",
+            "name": "Saint Agne-SNCF"
+          }
+        ]
+      },
+      {
+        "color": "(0,198,45)",
+        "bgXmlColor": "#00c62d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891621",
+        "name": "Cours Dillon / Basso Cambo",
+        "shortName": "12",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324837184995",
+            "cityName": "TOULOUSE",
+            "name": "Cours Dillon"
+          }
+        ]
+      },
+      {
+        "color": "(0,198,45)",
+        "bgXmlColor": "#00c62d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023200862",
+        "name": "Cours Dillon / Basso Cambo",
+        "shortName": "12s",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324837184995",
+            "cityName": "TOULOUSE",
+            "name": "Cours Dillon"
+          }
+        ]
+      },
+      {
+        "color": "(178,145,255)",
+        "bgXmlColor": "#b291ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891623",
+        "name": "Matabiau - Marengo SNCF / Basso Cambo",
+        "shortName": "14",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324837184594",
+            "cityName": "TOULOUSE",
+            "name": "Marengo-SNCF"
+          }
+        ]
+      },
+      {
+        "color": "(142,74,5)",
+        "bgXmlColor": "#8e4a05",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891624",
+        "name": "Jeanne d'Arc / Ã‰tats-Unis Fondeyre",
+        "shortName": "15",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184932",
+            "cityName": "TOULOUSE",
+            "name": "Jeanne d'Arc"
+          },
+          {
+            "id": "1970324837185381",
+            "cityName": "TOULOUSE",
+            "name": "Etats-Unis Fondeyre"
+          }
+        ]
+      },
+      {
+        "color": "(255,94,22)",
+        "bgXmlColor": "#ff5e16",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891628",
+        "name": "Andromède - Lycée / Mondonville Ã‰glise",
+        "shortName": "17",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837190352",
+            "cityName": "MONDONVILLE",
+            "name": "Mondonville Eglise"
+          },
+          {
+            "id": "1970324837343242",
+            "cityName": "BLAGNAC",
+            "name": "Andromède-Lycée"
+          },
+          {
+            "id": "1970324839976619",
+            "cityName": "BLAGNAC",
+            "name": "Collège Mermoz"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891627",
+        "name": "Borderouge / Place de l'indépendance",
+        "shortName": "19",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837501997",
+            "cityName": "TOULOUSE",
+            "name": "Borderouge"
+          },
+          {
+            "id": "1970324837185382",
+            "cityName": "TOULOUSE",
+            "name": "Place de l'Indépendance"
+          }
+        ]
+      },
+      {
+        "color": "(0,198,45)",
+        "bgXmlColor": "#00c62d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891629",
+        "name": "Balma - Gramont / Beaupuy Mairie",
+        "shortName": "20",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185612",
+            "cityName": "BALMA",
+            "name": "Balma-Gramont"
+          },
+          {
+            "id": "1970329131942100",
+            "cityName": "BEAUPUY",
+            "name": "Beaupuy Mairie"
+          }
+        ]
+      },
+      {
+        "color": "(0,198,45)",
+        "bgXmlColor": "#00c62d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949022509040",
+        "name": "Basso Cambo / Colomiers Airbus",
+        "shortName": "21",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324837185136",
+            "cityName": "COLOMIERS",
+            "name": "Colomiers Relais Bus"
+          },
+          {
+            "id": "1970324837189829",
+            "cityName": "COLOMIERS",
+            "name": "Colomiers Airbus"
+          }
+        ]
+      },
+      {
+        "color": "(142,74,5)",
+        "bgXmlColor": "#8e4a05",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891631",
+        "name": "Matabiau - Marengo SNCF / Gonin",
+        "shortName": "22",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184594",
+            "cityName": "TOULOUSE",
+            "name": "Marengo-SNCF"
+          },
+          {
+            "id": "1970324837184674",
+            "cityName": "TOULOUSE",
+            "name": "Gonin"
+          }
+        ]
+      },
+      {
+        "color": "(142,74,5)",
+        "bgXmlColor": "#8e4a05",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023200864",
+        "name": "Matabiau - Marengo SNCF / Gonin",
+        "shortName": "22s",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184594",
+            "cityName": "TOULOUSE",
+            "name": "Marengo-SNCF"
+          },
+          {
+            "id": "1970324837184674",
+            "cityName": "TOULOUSE",
+            "name": "Gonin"
+          }
+        ]
+      },
+      {
+        "color": "(142,74,5)",
+        "bgXmlColor": "#8e4a05",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023193145",
+        "name": "Jeanne d'Arc / Rangueil",
+        "shortName": "23",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184932",
+            "cityName": "TOULOUSE",
+            "name": "Jeanne d'Arc"
+          },
+          {
+            "id": "1970324838318954",
+            "cityName": "TOULOUSE",
+            "name": "Rangueil"
+          }
+        ]
+      },
+      {
+        "color": "(178,145,255)",
+        "bgXmlColor": "#b291ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023989725",
+        "name": "Blagnac E Zola / Aéroport Toulouse Blagnac",
+        "shortName": "25",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184612",
+            "cityName": "BLAGNAC",
+            "name": "Aéroport Toulouse-Blagnac"
+          },
+          {
+            "id": "1970324838348836",
+            "cityName": "BLAGNAC",
+            "name": "Blagnac Emile Zola"
+          }
+        ]
+      },
+      {
+        "color": "(142,74,5)",
+        "bgXmlColor": "#8e4a05",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023200852",
+        "name": "Borderouge / Launaguet Palanque",
+        "shortName": "26",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837501997",
+            "cityName": "TOULOUSE",
+            "name": "Borderouge"
+          },
+          {
+            "id": "1970324837184973",
+            "cityName": "LAUNAGUET",
+            "name": "Launaguet Palanque"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023200854",
+        "name": "Lycée Toulouse-Lautrec / Rangueil",
+        "shortName": "27",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837186162",
+            "cityName": "TOULOUSE",
+            "name": "Lycée Toulouse-Lautrec"
+          },
+          {
+            "id": "1970324838318954",
+            "cityName": "TOULOUSE",
+            "name": "Rangueil"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,208)",
+        "bgXmlColor": "#f400d0",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023743333",
+        "name": "Grand Rond / La Vache",
+        "shortName": "29",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184947",
+            "cityName": "TOULOUSE",
+            "name": "Grand Rond"
+          },
+          {
+            "id": "1970324838319080",
+            "cityName": "TOULOUSE",
+            "name": "La Vache"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949024885921",
+        "name": "Aéroport Toulouse Blagnac / Fenouillet Ctre Cial",
+        "shortName": "30",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184612",
+            "cityName": "BLAGNAC",
+            "name": "Aéroport Toulouse-Blagnac"
+          },
+          {
+            "id": "1970324837185047",
+            "cityName": "FENOUILLET",
+            "name": "Centre Commercial Fenouillet"
+          }
+        ]
+      },
+      {
+        "color": "(142,74,5)",
+        "bgXmlColor": "#8e4a05",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891635",
+        "name": "Colomiers Gare SNCF / Brax le ChÃ¢teau",
+        "shortName": "32",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184752",
+            "cityName": "COLOMIERS",
+            "name": "Colomiers Gare SNCF"
+          },
+          {
+            "id": "1970324837185068",
+            "cityName": "BRAX",
+            "name": "Brax le ChÃ¢teau"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891896",
+        "name": "Argoulets / Bruguières Mairie",
+        "shortName": "33",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837186460",
+            "cityName": "BRUGUIERES",
+            "name": "Bruguières Mairie"
+          },
+          {
+            "id": "1970324837190453",
+            "cityName": "TOULOUSE",
+            "name": "Argoulets"
+          }
+        ]
+      },
+      {
+        "color": "(255,94,22)",
+        "bgXmlColor": "#ff5e16",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023083020",
+        "name": "Arènes / Université Paul Sabatier",
+        "shortName": "34",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185012",
+            "cityName": "TOULOUSE",
+            "name": "Université Paul Sabatier"
+          },
+          {
+            "id": "1970324837184714",
+            "cityName": "TOULOUSE",
+            "name": "Arènes"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891897",
+        "name": "Balma - Gramont / Drémil Stade",
+        "shortName": "35",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185612",
+            "cityName": "BALMA",
+            "name": "Balma-Gramont"
+          },
+          {
+            "id": "1970324837190546",
+            "cityName": "DREMIL-LAFAGE",
+            "name": "Drémil Stade"
+          }
+        ]
+      },
+      {
+        "color": "(142,74,5)",
+        "bgXmlColor": "#8e4a05",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949022374900",
+        "name": "Roseraie / Borderouge",
+        "shortName": "36",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185603",
+            "cityName": "TOULOUSE",
+            "name": "Roseraie"
+          },
+          {
+            "id": "1970324837501997",
+            "cityName": "TOULOUSE",
+            "name": "Borderouge"
+          }
+        ]
+      },
+      {
+        "color": "(255,94,22)",
+        "bgXmlColor": "#ff5e16",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891898",
+        "name": "Jolimont / Ramonville Métro",
+        "shortName": "37",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185002",
+            "cityName": "TOULOUSE",
+            "name": "Jolimont"
+          },
+          {
+            "id": "1970324838348800",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Ramonville Métro"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891636",
+        "name": "Empalot / Amouroux",
+        "shortName": "38",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185353",
+            "cityName": "TOULOUSE",
+            "name": "Amouroux"
+          },
+          {
+            "id": "1970324837186130",
+            "cityName": "TOULOUSE",
+            "name": "Empalot"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023200865",
+        "name": "Cours Dillon / Amouroux",
+        "shortName": "38s",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184995",
+            "cityName": "TOULOUSE",
+            "name": "Cours Dillon"
+          },
+          {
+            "id": "1970324837185353",
+            "cityName": "TOULOUSE",
+            "name": "Amouroux"
+          }
+        ]
+      },
+      {
+        "color": "(0,198,45)",
+        "bgXmlColor": "#00c62d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891637",
+        "name": "Argoulets / L'Union Somport",
+        "shortName": "39",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184918",
+            "cityName": "L'UNION",
+            "name": "L'Union Somport"
+          },
+          {
+            "id": "1970324837190453",
+            "cityName": "TOULOUSE",
+            "name": "Argoulets"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,208)",
+        "bgXmlColor": "#f400d0",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891638",
+        "name": "Borderouge / L'Union Malbou",
+        "shortName": "40",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837501997",
+            "cityName": "TOULOUSE",
+            "name": "Borderouge"
+          },
+          {
+            "id": "1970324837184929",
+            "cityName": "L'UNION",
+            "name": "L'Union Malbou"
+          }
+        ]
+      },
+      {
+        "color": "(255,94,22)",
+        "bgXmlColor": "#ff5e16",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891639",
+        "name": "Borderouge / Chaussas",
+        "shortName": "41",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837501997",
+            "cityName": "TOULOUSE",
+            "name": "Borderouge"
+          },
+          {
+            "id": "1970324837184635",
+            "cityName": "TOULOUSE",
+            "name": "Chaussas"
+          }
+        ]
+      },
+      {
+        "color": "(255,94,22)",
+        "bgXmlColor": "#ff5e16",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891640",
+        "name": "Jeanne d'Arc / St Jean Clinique de l'Union",
+        "shortName": "42",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184932",
+            "cityName": "TOULOUSE",
+            "name": "Jeanne d'Arc"
+          },
+          {
+            "id": "1970324837184935",
+            "cityName": "SAINT-JEAN",
+            "name": "Saint Jean Clinique de l'Union"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891895",
+        "name": "Argoulets / St Jean Clinique de l'Union",
+        "shortName": "43",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184932",
+            "cityName": "TOULOUSE",
+            "name": "Jeanne d'Arc"
+          },
+          {
+            "id": "1970324837184935",
+            "cityName": "SAINT-JEAN",
+            "name": "Saint Jean Clinique de l'Union"
+          },
+          {
+            "id": "1970324837186135",
+            "cityName": "TOULOUSE",
+            "name": "Lycée Raymond Naves"
+          },
+          {
+            "id": "1970324837190453",
+            "cityName": "TOULOUSE",
+            "name": "Argoulets"
+          },
+          {
+            "id": "1970324837394073",
+            "cityName": "SAINT-JEAN",
+            "name": "Collège St Jean"
+          },
+          {
+            "id": "1970324840530366",
+            "cityName": "SAINT-JEAN",
+            "name": "FranÃ§ois Mitterrand"
+          }
+        ]
+      },
+      {
+        "color": "(0,64,196)",
+        "bgXmlColor": "#0040c4",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023200855",
+        "name": "Jeanne d'Arc / Borderouge",
+        "shortName": "44",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184932",
+            "cityName": "TOULOUSE",
+            "name": "Jeanne d'Arc"
+          },
+          {
+            "id": "1970324837501997",
+            "cityName": "TOULOUSE",
+            "name": "Borderouge"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949024910297",
+        "name": "Jeanne d'Arc / Pelletier Purpan",
+        "shortName": "45",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184677",
+            "cityName": "TOULOUSE",
+            "name": "Pelletier Purpan"
+          },
+          {
+            "id": "1970324837184932",
+            "cityName": "TOULOUSE",
+            "name": "Jeanne d'Arc"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,208)",
+        "bgXmlColor": "#f400d0",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891641",
+        "name": "Arènes / Pelletier Purpan",
+        "shortName": "46",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184677",
+            "cityName": "TOULOUSE",
+            "name": "Pelletier Purpan"
+          },
+          {
+            "id": "1970324837184714",
+            "cityName": "TOULOUSE",
+            "name": "Arènes"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,2)",
+        "bgXmlColor": "#f40002",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891642",
+        "name": "Basso Cambo / Portet Gare SNCF ou Lycée Polyvalent",
+        "shortName": "47",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324837184685",
+            "cityName": "PORTET-SUR-GARONNE",
+            "name": "Portet Gare SNCF"
+          }
+        ]
+      },
+      {
+        "color": "(0,198,45)",
+        "bgXmlColor": "#00c62d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891643",
+        "name": "Basso Cambo / La Ramée",
+        "shortName": "48",
+        "network": "Tisséo"
+      },
+      {
+        "color": "(0,64,196)",
+        "bgXmlColor": "#0040c4",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891644",
+        "name": "Basso Cambo / Portet Gare SNCF",
+        "shortName": "49",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324837184685",
+            "cityName": "PORTET-SUR-GARONNE",
+            "name": "Portet Gare SNCF"
+          }
+        ]
+      },
+      {
+        "color": "(142,74,5)",
+        "bgXmlColor": "#8e4a05",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891645",
+        "name": "Basso Cambo / Portet H. Boucher ou Roques Acacias",
+        "shortName": "50",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324837185015",
+            "cityName": "PORTET-SUR-GARONNE",
+            "name": "Portet H. Boucher"
+          },
+          {
+            "id": "1970324837185082",
+            "cityName": "ROQUES",
+            "name": "Roques Acacias"
+          }
+        ]
+      },
+      {
+        "color": "(255,94,22)",
+        "bgXmlColor": "#ff5e16",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891646",
+        "name": "Balma - Gramont / La Terrasse",
+        "shortName": "51",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185612",
+            "cityName": "BALMA",
+            "name": "Balma-Gramont"
+          },
+          {
+            "id": "1970329131942063",
+            "cityName": "TOULOUSE",
+            "name": "La Terrasse"
+          }
+        ]
+      },
+      {
+        "color": "(86,63,0)",
+        "bgXmlColor": "#563f00",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891647",
+        "name": "Empalot / Roquettes église ou Pinsaguel mairie",
+        "shortName": "52",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837186130",
+            "cityName": "TOULOUSE",
+            "name": "Empalot"
+          },
+          {
+            "id": "1970324837185015",
+            "cityName": "PORTET-SUR-GARONNE",
+            "name": "Portet H. Boucher"
+          },
+          {
+            "id": "1970324837185081",
+            "cityName": "ROQUETTES",
+            "name": "Roquettes Eglise"
+          },
+          {
+            "id": "1970324837185085",
+            "cityName": "PINSAGUEL",
+            "name": "Pinsaguel Tilleuls"
+          },
+          {
+            "id": "1970324839361574",
+            "cityName": "TOULOUSE",
+            "name": "Oncopole"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821953316814850",
+        "name": "Basso Cambo / Tibaous",
+        "shortName": "53",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324837184900",
+            "cityName": "TOULOUSE",
+            "name": "Lycée Polyvalent"
+          },
+          {
+            "id": "1970329131941949",
+            "cityName": "TOULOUSE",
+            "name": "Tibaous"
+          }
+        ]
+      },
+      {
+        "color": "(255,94,22)",
+        "bgXmlColor": "#ff5e16",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891649",
+        "name": "Empalot / Gleyze-Vieille",
+        "shortName": "54",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837186130",
+            "cityName": "TOULOUSE",
+            "name": "Empalot"
+          },
+          {
+            "id": "1970324837185356",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Gleyze-Vieille"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,2)",
+        "bgXmlColor": "#f40002",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891650",
+        "name": "Colomiers Gare SNCF / Plaisance Monestié",
+        "shortName": "55",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184752",
+            "cityName": "COLOMIERS",
+            "name": "Colomiers Gare SNCF"
+          },
+          {
+            "id": "1970324837185061",
+            "cityName": "PLAISANCE-DU-TOUCH",
+            "name": "Plaisance Monestié"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891651",
+        "name": "Université Paul Sabatier / Auzeville Ã‰glise",
+        "shortName": "56",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185012",
+            "cityName": "TOULOUSE",
+            "name": "Université Paul Sabatier"
+          },
+          {
+            "id": "1970324837185360",
+            "cityName": "AUZEVILLE-TOLOSANE",
+            "name": "Auzeville Eglise"
+          }
+        ]
+      },
+      {
+        "color": "(86,63,0)",
+        "bgXmlColor": "#563f00",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891652",
+        "name": "Basso Cambo / Frouzins JP Sabatier",
+        "shortName": "57",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324839002683",
+            "cityName": "FROUZINS",
+            "name": "Frouzins JP Sabatier"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891653",
+        "name": "Basso Cambo / Muret Lycée",
+        "shortName": "58",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184808",
+            "cityName": "TOULOUSE",
+            "name": "Basso Cambo"
+          },
+          {
+            "id": "1970324837185078",
+            "cityName": "MURET",
+            "name": "Muret Lycée"
+          },
+          {
+            "id": "1970324837185377",
+            "cityName": "SEYSSES",
+            "name": "Seysses Gay"
+          },
+          {
+            "id": "1970324837190290",
+            "cityName": "SEYSSES",
+            "name": "Seysses Maison d'ArrÃªt"
+          }
+        ]
+      },
+      {
+        "color": "(102,0,153)",
+        "bgXmlColor": "#660099",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891654",
+        "name": "La Vache / Lespinasse Mairie",
+        "shortName": "59",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837186162",
+            "cityName": "TOULOUSE",
+            "name": "Lycée Toulouse-Lautrec"
+          },
+          {
+            "id": "1970324837184988",
+            "cityName": "FENOUILLET",
+            "name": "Fenouillet Croix"
+          },
+          {
+            "id": "1970324837184990",
+            "cityName": "LESPINASSE",
+            "name": "Lespinasse Mairie"
+          },
+          {
+            "id": "1970324837186396",
+            "cityName": "GAGNAC-SUR-GARONNE",
+            "name": "Gagnac Acacias"
+          },
+          {
+            "id": "1970324838319080",
+            "cityName": "TOULOUSE",
+            "name": "La Vache"
+          }
+        ]
+      },
+      {
+        "color": "(102,0,153)",
+        "bgXmlColor": "#660099",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891655",
+        "name": "La Vache / Castelginest Buffebiau",
+        "shortName": "60",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837186162",
+            "cityName": "TOULOUSE",
+            "name": "Lycée Toulouse-Lautrec"
+          },
+          {
+            "id": "1970324837184985",
+            "cityName": "CASTELGINEST",
+            "name": "Castelginest Buffebiau"
+          },
+          {
+            "id": "1970324838319080",
+            "cityName": "TOULOUSE",
+            "name": "La Vache"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,2)",
+        "bgXmlColor": "#f40002",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891656",
+        "name": "Trois Cocus / Fonbeauzard Mairie, Montberon ou St Loup",
+        "shortName": "61",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837186162",
+            "cityName": "TOULOUSE",
+            "name": "Lycée Toulouse-Lautrec"
+          },
+          {
+            "id": "1970324837184978",
+            "cityName": "MONTBERON",
+            "name": "Montberon Mairie"
+          },
+          {
+            "id": "1970324837184958",
+            "cityName": "TOULOUSE",
+            "name": "Trois Cocus"
+          },
+          {
+            "id": "1970324837190521",
+            "cityName": "FONBEAUZARD",
+            "name": "Fonbeauzard Mairie"
+          },
+          {
+            "id": "1970324840530367",
+            "cityName": "SAINT-LOUP-CAMMAS",
+            "name": "Saint Loup"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891657",
+        "name": "Ramonville Métro / Castanet-Tolosan",
+        "shortName": "62",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324838348800",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Ramonville Métro"
+          },
+          {
+            "id": "1970324838561174",
+            "cityName": "CASTANET-TOLOSAN",
+            "name": "Castanet-Tolosan"
+          }
+        ]
+      },
+      {
+        "color": "(255,168,255)",
+        "bgXmlColor": "#ffa8ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949024740620",
+        "name": "Compans - Caffarelli / Tournefeuille Lycée",
+        "shortName": "63",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184671",
+            "cityName": "TOULOUSE",
+            "name": "Compans - Caffarelli"
+          },
+          {
+            "id": "1970324838561171",
+            "cityName": "TOURNEFEUILLE",
+            "name": "Tournefeuille Lycée"
+          }
+        ]
+      },
+      {
+        "color": "(86,63,0)",
+        "bgXmlColor": "#563f00",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891659",
+        "name": "Arènes / Colomiers Lycée International",
+        "shortName": "64",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184714",
+            "cityName": "TOULOUSE",
+            "name": "Arènes"
+          },
+          {
+            "id": "1970324837186529",
+            "cityName": "TOULOUSE",
+            "name": "Lemire"
+          },
+          {
+            "id": "1970324838348834",
+            "cityName": "COLOMIERS",
+            "name": "Colomiers Lycée International"
+          }
+        ]
+      },
+      {
+        "color": "(178,145,255)",
+        "bgXmlColor": "#b291ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891660",
+        "name": "Arènes / Plaisance Monestié (par D632)",
+        "shortName": "65",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184714",
+            "cityName": "TOULOUSE",
+            "name": "Arènes"
+          },
+          {
+            "id": "1970324837185061",
+            "cityName": "PLAISANCE-DU-TOUCH",
+            "name": "Plaisance Monestié"
+          },
+          {
+            "id": "1970324838561171",
+            "cityName": "TOURNEFEUILLE",
+            "name": "Tournefeuille Lycée"
+          }
+        ]
+      },
+      {
+        "color": "(0,198,45)",
+        "bgXmlColor": "#00c62d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891661",
+        "name": "St Cyprien - République / Aéroport Toulouse Blagnac",
+        "shortName": "66",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184772",
+            "cityName": "TOULOUSE",
+            "name": "Saint Cyprien - République"
+          },
+          {
+            "id": "1970324837184612",
+            "cityName": "BLAGNAC",
+            "name": "Aéroport Toulouse-Blagnac"
+          }
+        ]
+      },
+      {
+        "color": "(255,168,255)",
+        "bgXmlColor": "#ffa8ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891662",
+        "name": "Arènes / Plaisance Monestié (par Marquisat)",
+        "shortName": "67",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184714",
+            "cityName": "TOULOUSE",
+            "name": "Arènes"
+          },
+          {
+            "id": "1970324837185061",
+            "cityName": "PLAISANCE-DU-TOUCH",
+            "name": "Plaisance Monestié"
+          }
+        ]
+      },
+      {
+        "color": "(255,168,255)",
+        "bgXmlColor": "#ffa8ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891663",
+        "name": "Ramonville Métro / La Terrasse",
+        "shortName": "68",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324838348800",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Ramonville Métro"
+          },
+          {
+            "id": "1970329131942063",
+            "cityName": "TOULOUSE",
+            "name": "La Terrasse"
+          }
+        ]
+      },
+      {
+        "color": "(178,145,255)",
+        "bgXmlColor": "#b291ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891664",
+        "name": "La Vache / Gratentour Gravette ou Bruguières",
+        "shortName": "69",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837186162",
+            "cityName": "TOULOUSE",
+            "name": "Lycée Toulouse-Lautrec"
+          },
+          {
+            "id": "1970324837184984",
+            "cityName": "GRATENTOUR",
+            "name": "Gratentour Gravette"
+          },
+          {
+            "id": "1970324837184987",
+            "cityName": "BRUGUIERES",
+            "name": "Bruguières"
+          },
+          {
+            "id": "1970324838319080",
+            "cityName": "TOULOUSE",
+            "name": "La Vache"
+          }
+        ]
+      },
+      {
+        "color": "(255,168,255)",
+        "bgXmlColor": "#ffa8ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891665",
+        "name": "Jeanne d'Arc / Aéroconstellation",
+        "shortName": "70",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184932",
+            "cityName": "TOULOUSE",
+            "name": "Jeanne d'Arc"
+          },
+          {
+            "id": "1970324837190628",
+            "cityName": "BEAUZELLE",
+            "name": "Aéroconstellation"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891666",
+        "name": "Andromède - Lycée / Aussonne Agassines",
+        "shortName": "71",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837190361",
+            "cityName": "AUSSONNE",
+            "name": "Aussonne Agassines"
+          },
+          {
+            "id": "1970324837343242",
+            "cityName": "BLAGNAC",
+            "name": "Andromède-Lycée"
+          }
+        ]
+      },
+      {
+        "color": "(0,64,196)",
+        "bgXmlColor": "#0040c4",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891667",
+        "name": "Balma - Gramont / Balma Lasbordes",
+        "shortName": "72",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185612",
+            "cityName": "BALMA",
+            "name": "Balma-Gramont"
+          },
+          {
+            "id": "1970324837185368",
+            "cityName": "BALMA",
+            "name": "Balma Lasbordes"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,2)",
+        "bgXmlColor": "#f40002",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891668",
+        "name": "Borderouge / St Jean Lestang",
+        "shortName": "73",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837501997",
+            "cityName": "TOULOUSE",
+            "name": "Borderouge"
+          },
+          {
+            "id": "1970324837184936",
+            "cityName": "SAINT-JEAN",
+            "name": "Saint Jean Lestang"
+          }
+        ]
+      },
+      {
+        "color": "(86,63,0)",
+        "bgXmlColor": "#563f00",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891669",
+        "name": "Balma - Gramont / Rouffiac-Tolosan",
+        "shortName": "74",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185612",
+            "cityName": "BALMA",
+            "name": "Balma-Gramont"
+          },
+          {
+            "id": "1970324837184939",
+            "cityName": "ROUFFIAC-TOLOSAN",
+            "name": "Rouffiac-Tolosan"
+          }
+        ]
+      },
+      {
+        "color": "(178,145,255)",
+        "bgXmlColor": "#b291ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891670",
+        "name": "Argoulets / Castelmaurou Mairie",
+        "shortName": "75",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185193",
+            "cityName": "CASTELMAUROU",
+            "name": "Castelmaurou Mairie"
+          },
+          {
+            "id": "1970324837184941",
+            "cityName": "LAPEYROUSE-FOSSAT",
+            "name": "Lapeyrouse"
+          },
+          {
+            "id": "1970324837186135",
+            "cityName": "TOULOUSE",
+            "name": "Lycée Raymond Naves"
+          },
+          {
+            "id": "1970324837190453",
+            "cityName": "TOULOUSE",
+            "name": "Argoulets"
+          }
+        ]
+      },
+      {
+        "color": "(142,74,5)",
+        "bgXmlColor": "#8e4a05",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891671",
+        "name": "Argoulets / Lapeyrouse",
+        "shortName": "76",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184941",
+            "cityName": "LAPEYROUSE-FOSSAT",
+            "name": "Lapeyrouse"
+          },
+          {
+            "id": "1970324837190453",
+            "cityName": "TOULOUSE",
+            "name": "Argoulets"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891672",
+        "name": "Balma - Gramont / Fonsegrives Collège",
+        "shortName": "77",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185612",
+            "cityName": "BALMA",
+            "name": "Balma-Gramont"
+          },
+          {
+            "id": "1970324837190645",
+            "cityName": "QUINT-FONSEGRIVES",
+            "name": "Fonsegrives Collège"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,2)",
+        "bgXmlColor": "#f40002",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891673",
+        "name": "Université Paul Sabatier / St Orens Lycée",
+        "shortName": "78",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185012",
+            "cityName": "TOULOUSE",
+            "name": "Université Paul Sabatier"
+          },
+          {
+            "id": "1970324837185279",
+            "cityName": "SAINT-ORENS-DE-GAMEVILLE",
+            "name": "Saint Orens Lycée"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,2)",
+        "bgXmlColor": "#f40002",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821953316814852",
+        "name": "Université Paul Sabatier / St Orens Lycée",
+        "shortName": "78s",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185012",
+            "cityName": "TOULOUSE",
+            "name": "Université Paul Sabatier"
+          },
+          {
+            "id": "1970324837185279",
+            "cityName": "SAINT-ORENS-DE-GAMEVILLE",
+            "name": "Saint Orens Lycée"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891674",
+        "name": "Ramonville Métro / Labège Couder ou St-Orens Lycée",
+        "shortName": "79",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837186862",
+            "cityName": "LABEGE",
+            "name": "Périgord"
+          },
+          {
+            "id": "1970324838348800",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Ramonville Métro"
+          },
+          {
+            "id": "1970324837185279",
+            "cityName": "SAINT-ORENS-DE-GAMEVILLE",
+            "name": "Saint Orens Lycée"
+          },
+          {
+            "id": "1970324837185316",
+            "cityName": "LABEGE",
+            "name": "Labège Couder"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949024202292",
+        "name": "Université Paul Sabatier / St-Orens Lycée",
+        "shortName": "79s",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185012",
+            "cityName": "TOULOUSE",
+            "name": "Université Paul Sabatier"
+          },
+          {
+            "id": "1970324837185279",
+            "cityName": "SAINT-ORENS-DE-GAMEVILLE",
+            "name": "Saint Orens Lycée"
+          }
+        ]
+      },
+      {
+        "color": "(102,0,153)",
+        "bgXmlColor": "#660099",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891675",
+        "name": "Rangueil / Belberaud La Balme",
+        "shortName": "80",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324838318954",
+            "cityName": "TOULOUSE",
+            "name": "Rangueil"
+          },
+          {
+            "id": "1970329131942087",
+            "cityName": "BELBERAUD",
+            "name": "Belberaud La Balme"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,208)",
+        "bgXmlColor": "#f400d0",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891682",
+        "name": "Université Paul Sabatier / Castanet-Tolosan",
+        "shortName": "81",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185012",
+            "cityName": "TOULOUSE",
+            "name": "Université Paul Sabatier"
+          },
+          {
+            "id": "1970324838561174",
+            "cityName": "CASTANET-TOLOSAN",
+            "name": "Castanet-Tolosan"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,208)",
+        "bgXmlColor": "#f400d0",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023798567",
+        "name": "Université Paul Sabatier / Castanet -Tolosan",
+        "shortName": "81s",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185012",
+            "cityName": "TOULOUSE",
+            "name": "Université Paul Sabatier"
+          },
+          {
+            "id": "1970324838561174",
+            "cityName": "CASTANET-TOLOSAN",
+            "name": "Castanet-Tolosan"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,2)",
+        "bgXmlColor": "#f40002",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891683",
+        "name": "Université Paul Sabatier / Ramonville Midiville",
+        "shortName": "82",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185012",
+            "cityName": "TOULOUSE",
+            "name": "Université Paul Sabatier"
+          },
+          {
+            "id": "1970324837185374",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Ramonville Port Sud"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,208)",
+        "bgXmlColor": "#f400d0",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891684",
+        "name": "Balma - Gramont / St Orens Lycée",
+        "shortName": "83",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185612",
+            "cityName": "BALMA",
+            "name": "Balma-Gramont"
+          },
+          {
+            "id": "1970324837185279",
+            "cityName": "SAINT-ORENS-DE-GAMEVILLE",
+            "name": "Saint Orens Lycée"
+          }
+        ]
+      },
+      {
+        "color": "(51,255,255)",
+        "bgXmlColor": "#33ffff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821953316814851",
+        "name": "Balma - Gramont / Balma Bicentenaire",
+        "shortName": "84",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185612",
+            "cityName": "BALMA",
+            "name": "Balma-Gramont"
+          },
+          {
+            "id": "1970324837189279",
+            "cityName": "BALMA",
+            "name": "Balma Bicentenaire"
+          }
+        ]
+      },
+      {
+        "color": "(0,64,196)",
+        "bgXmlColor": "#0040c4",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821953316814855",
+        "name": "Lycée Polyvalent / Cugnaux Henry Galdi",
+        "shortName": "87",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184900",
+            "cityName": "TOULOUSE",
+            "name": "Lycée Polyvalent"
+          },
+          {
+            "id": "1970329131942128",
+            "cityName": "CUGNAUX",
+            "name": "Cugnaux Henry Gladi"
+          }
+        ]
+      },
+      {
+        "color": "(178,145,255)",
+        "bgXmlColor": "#b291ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023946608",
+        "name": "Ramonville Métro / HÃ´pital Larrey",
+        "shortName": "88",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185012",
+            "cityName": "TOULOUSE",
+            "name": "Université Paul Sabatier"
+          },
+          {
+            "id": "1970324838348800",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Ramonville Métro"
+          },
+          {
+            "id": "1970324837448244",
+            "cityName": "TOULOUSE",
+            "name": "HÃ´pital Larrey"
+          }
+        ]
+      },
+      {
+        "color": "(178,145,255)",
+        "bgXmlColor": "#b291ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949024037461",
+        "name": "Université Paul Sabatier / CHR Rangueil",
+        "shortName": "88s",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184793",
+            "cityName": "TOULOUSE",
+            "name": "CHR Rangueil"
+          },
+          {
+            "id": "1970324837185012",
+            "cityName": "TOULOUSE",
+            "name": "Université Paul Sabatier"
+          }
+        ]
+      },
+      {
+        "color": "(255,94,22)",
+        "bgXmlColor": "#ff5e16",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949022345006",
+        "name": "Malepère / Castanet-Tolosan",
+        "shortName": "109",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324838561174",
+            "cityName": "CASTANET-TOLOSAN",
+            "name": "Castanet-Tolosan"
+          },
+          {
+            "id": "1970324837186852",
+            "cityName": "TOULOUSE",
+            "name": "Malepère"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023707108",
+        "name": "Barrière de Paris / Glacière Sesquières",
+        "shortName": "110",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185046",
+            "cityName": "TOULOUSE",
+            "name": "Barrière de Paris"
+          },
+          {
+            "id": "1970324838834159",
+            "cityName": "TOULOUSE",
+            "name": "Glacière Sesquières"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,208)",
+        "bgXmlColor": "#f400d0",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023706503",
+        "name": "Ramonville Métro / Théogone / Ramonville Métro",
+        "shortName": "111",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184716",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Théogone"
+          },
+          {
+            "id": "1970324838348800",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Ramonville Métro"
+          }
+        ]
+      },
+      {
+        "color": "(0,198,45)",
+        "bgXmlColor": "#00c62d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023742784",
+        "name": "Ramonville Métro / Montjoie",
+        "shortName": "112",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324838348800",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Ramonville Métro"
+          },
+          {
+            "id": "1970324838869897",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Montjoie"
+          }
+        ]
+      },
+      {
+        "color": "(255,94,22)",
+        "bgXmlColor": "#ff5e16",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949025413197",
+        "name": "Pechbonnieu Collège / Fenouillet Croix",
+        "shortName": "113",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184988",
+            "cityName": "FENOUILLET",
+            "name": "Fenouillet Croix"
+          },
+          {
+            "id": "1970324837337554",
+            "cityName": "PECHBONNIEU",
+            "name": "Collège Pechbonnieu"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023946609",
+        "name": "Borderouge / Quartier Virebent",
+        "shortName": "114",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837501997",
+            "cityName": "TOULOUSE",
+            "name": "Borderouge"
+          }
+        ]
+      },
+      {
+        "color": "(0,198,45)",
+        "bgXmlColor": "#00c62d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023946612",
+        "name": "St Agne - Gare SNCF / Pech David",
+        "shortName": "115",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184617",
+            "cityName": "TOULOUSE",
+            "name": "Saint Agne-SNCF"
+          },
+          {
+            "id": "1970324839164068",
+            "cityName": "TOULOUSE",
+            "name": "Pech David"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949025413199",
+        "name": "Tournefeuille Lycée / Saint Lys Piscine",
+        "shortName": "116",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324838561171",
+            "cityName": "TOURNEFEUILLE",
+            "name": "Tournefeuille Lycée"
+          },
+          {
+            "id": "1970324840530416",
+            "cityName": "SAINT-LYS",
+            "name": "Saint Lys Piscine"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949025413198",
+        "name": "Potier Oncopole / Gare Muret SNCF",
+        "shortName": "117",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184595",
+            "cityName": "MURET",
+            "name": "Muret Gare SNCF"
+          },
+          {
+            "id": "1970324840530412",
+            "cityName": "TOULOUSE",
+            "name": "Potier Oncopole"
+          }
+        ]
+      },
+      {
+        "color": "(0,198,45)",
+        "bgXmlColor": "#00c62d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821953316814856",
+        "name": "Liaison Oncopole",
+        "shortName": "140",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822585",
+          "article": "le",
+          "name": "bus"
+        },
+        "terminus": [
+          {
+            "id": "1970324837186219",
+            "cityName": "TOULOUSE",
+            "name": "Marchant"
+          },
+          {
+            "id": "1970324840530412",
+            "cityName": "TOULOUSE",
+            "name": "Potier Oncopole"
+          }
+        ]
+      },
+      {
+        "color": "(255,168,255)",
+        "bgXmlColor": "#ffa8ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891899",
+        "name": "La Vache / St Jory",
+        "shortName": "105",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822589",
+          "article": "le",
+          "name": "transport Ã  la demande"
+        },
+        "terminus": [
+          {
+            "id": "1970324838319080",
+            "cityName": "TOULOUSE",
+            "name": "La Vache"
+          },
+          {
+            "id": "1970324840530429",
+            "cityName": "SAINT-JORY",
+            "name": "Fabas"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891900",
+        "name": "Balma-Gramont / Aigrefeuille - Balma - Drémil Lafage - Flourens -  Mondouzil - Mons - Pin Balma - Quint Fonsegrives",
+        "shortName": "106",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822589",
+          "article": "le",
+          "name": "transport Ã  la demande"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185612",
+            "cityName": "BALMA",
+            "name": "Balma-Gramont"
+          },
+          {
+            "id": "1970324837653558",
+            "cityName": "DREMIL-LAFAGE",
+            "name": "Montségur"
+          },
+          {
+            "id": "1970324838481966",
+            "cityName": "QUINT-FONSEGRIVES",
+            "name": "Constellations"
+          },
+          {
+            "id": "1970324839056448",
+            "cityName": "MONS",
+            "name": "En Gilède"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,2)",
+        "bgXmlColor": "#f40002",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949023946610",
+        "name": "Colomiers Gare SNCF / Aussonne - Cornebarrieu - Mondonville",
+        "shortName": "118",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822589",
+          "article": "le",
+          "name": "transport Ã  la demande"
+        },
+        "terminus": [
+          {
+            "id": "1970324837184752",
+            "cityName": "COLOMIERS",
+            "name": "Colomiers Gare SNCF"
+          },
+          {
+            "id": "1970324840001229",
+            "cityName": "AUSSONNE",
+            "name": "Planète"
+          },
+          {
+            "id": "1970324840001231",
+            "cityName": "AUSSONNE",
+            "name": "Laurières"
+          }
+        ]
+      },
+      {
+        "color": "(255,94,22)",
+        "bgXmlColor": "#ff5e16",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949024259575",
+        "name": "Ramonville Métro / Aureville - Castanet Tolosan - Goyrans - Lacroix Falgarde - Mervilla - Pechbusque - Ramonville St Agne - Rebigue - Vieille Toulouse - Vigoulet Auzil",
+        "shortName": "119",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822589",
+          "article": "le",
+          "name": "transport Ã  la demande"
+        },
+        "terminus": [
+          {
+            "id": "1970324838348800",
+            "cityName": "RAMONVILLE-SAINT-AGNE",
+            "name": "Ramonville Métro"
+          },
+          {
+            "id": "1970324837186248",
+            "cityName": "TOULOUSE",
+            "name": "Escagarol"
+          },
+          {
+            "id": "1970324837186251",
+            "cityName": "VIEILLE-TOULOUSE",
+            "name": "Notre Dame des Coteaux"
+          },
+          {
+            "id": "1970324837190320",
+            "cityName": "MERVILLA",
+            "name": "Falcou"
+          },
+          {
+            "id": "1970324839397483",
+            "cityName": "LACROIX-FALGARDE",
+            "name": "Coq"
+          },
+          {
+            "id": "1970329131942137",
+            "cityName": "CLERMONT-LE-FORT",
+            "name": "Bois Grand"
+          }
+        ]
+      },
+      {
+        "color": "(0,64,196)",
+        "bgXmlColor": "#0040c4",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949024875466",
+        "name": "Aéroconstellation / Aussonne - Beauzelle - Cornebarrieu - Mondonville - Seilh",
+        "shortName": "120",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822589",
+          "article": "le",
+          "name": "transport Ã  la demande"
+        },
+        "terminus": [
+          {
+            "id": "1970324839164194",
+            "cityName": "CORNEBARRIEU",
+            "name": "Syndics"
+          },
+          {
+            "id": "1970324840001221",
+            "cityName": "AUSSONNE",
+            "name": "Las Planos"
+          },
+          {
+            "id": "1970324840034506",
+            "cityName": "BEAUZELLE",
+            "name": "Cigognes"
+          }
+        ]
+      },
+      {
+        "color": "(255,168,255)",
+        "bgXmlColor": "#ffa8ff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891677",
+        "name": "Saint Orens Lycée / Varennes En Clavié",
+        "shortName": "201",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822589",
+          "article": "le",
+          "name": "transport Ã  la demande"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185279",
+            "cityName": "SAINT-ORENS-DE-GAMEVILLE",
+            "name": "Saint Orens Lycée"
+          },
+          {
+            "id": "1970324840377831",
+            "cityName": "VARENNES",
+            "name": "Varennes En Clavié"
+          }
+        ]
+      },
+      {
+        "color": "(148,210,77)",
+        "bgXmlColor": "#94d24d",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891678",
+        "name": "Castanet Tolosan / Montbrun Lauragais Roumieu",
+        "shortName": "202",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822589",
+          "article": "le",
+          "name": "transport Ã  la demande"
+        },
+        "terminus": [
+          {
+            "id": "1970324838561174",
+            "cityName": "CASTANET-TOLOSAN",
+            "name": "Castanet-Tolosan"
+          },
+          {
+            "id": "1970324837190653",
+            "cityName": "MONTBRUN-LAURAGAIS",
+            "name": "Montbrun Lauragais Roumieu"
+          }
+        ]
+      },
+      {
+        "color": "(244,0,2)",
+        "bgXmlColor": "#f40002",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891680",
+        "name": "Labège Innopole Gare SNCF / Ayguesvives Collège",
+        "shortName": "204",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822589",
+          "article": "le",
+          "name": "transport Ã  la demande"
+        },
+        "terminus": [
+          {
+            "id": "1970324837185293",
+            "cityName": "LABEGE",
+            "name": "Labège Gare SNCF Innopole"
+          },
+          {
+            "id": "1970324837188026",
+            "cityName": "AYGUESVIVES",
+            "name": "Ayguevives Collège"
+          }
+        ]
+      },
+      {
+        "color": "(38,206,255)",
+        "bgXmlColor": "#26ceff",
+        "fgXmlColor": "#FFFFFF",
+        "id": "11821949021891681",
+        "name": "Castanet Tolosan / Ayguesvives Collège",
+        "shortName": "205",
+        "network": "Tisséo",
+        "transportMode": {
+          "id": "13792273858822589",
+          "article": "le",
+          "name": "transport Ã  la demande"
+        },
+        "terminus": [
+          {
+            "id": "1970324838561174",
+            "cityName": "CASTANET-TOLOSAN",
+            "name": "Castanet-Tolosan"
+          },
+          {
+            "id": "1970324837188026",
+            "cityName": "AYGUESVIVES",
+            "name": "Ayguevives Collège"
+          }
+        ]
+      }
+    ]
+  }
+}
+</code>
+## Exemples d’utilisation</p>
+
+<p><strong>Exemples de requêtes :</strong></p>
+
+<ol>
+  <li>
+    <p>Liste de toutes lignes au format xml du réseau tisséo</p>
+
+    <p><code>http://pt.data.tisseo.fr/linesList?&amp;key={your_key}</code></p>
+  </li>
+  <li>
+    <p>liste de toutes les lignes du réseau tisséo au format json</p>
+
+    <p><code>http://pt.data.tisseo.fr/linesList?&amp;key={your_key}&amp;format=json&amp;network=Tisséo</code></p>
+  </li>
+  <li>
+    <p>liste de toutes les lignes du réseau Tisséo avec les arrêts logiques terminus.</p>
+
+    <p><code>http://pt.data.tisseo.fr/linesList?&amp;key={your_key}&amp;displayTerminus=1</code></p>
+  </li>
+</ol>
+
+      </div>
+    </div>
+    
+
+
+    </body>
+</html>

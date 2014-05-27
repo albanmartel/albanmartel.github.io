@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Prochains Passages</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Documentation API TISSÉO">
+    <link rel="canonical" href="http://localhost:4000/Prochains-passages.html">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+
+
+    <body>
+
+    <div class="page-content">
+      <div class="wrap">
+      <h1 id="prochains-passages--un-arrt">Prochains passages à un arrêt</h1>
+<p>## Principe
+Cette API permet d’obtenir la liste des prochains passages à un poteau d’arrêt.
+Ne concerne que les Bus et Tramway. </p>
+
+<p><strong>Aucune information ne sera retournée pour le métro ou les TAD.</strong></p>
+
+<p>Un paramètre permet de préciser si l’on souhaite obtenir les <strong>horaires théoriques</strong> de la fiche horaires ou
+des <strong>horaires « temps réel »</strong> c’est-à-dire re-estimés en fonction des conditions de trafic.
+Lorsque le choix d’horaires temps réel a été fait, la réponse précise pour chaque horaire si il a pu être re-
+estimé <strong>(realTime=”yes”)</strong> ou si l’horaire reste celui indicatif de la fiche horaire <strong>(realTime=”no”)</strong>.
+## Mode d’appel et Paramètres
+URL : <code>http://pt.data.tisseo.fr/departureBoard?...paramètres...</code></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Nom</th>
+      <th style="text-align: left">Description du paramètre</th>
+      <th style="text-align: left">Requis ?</th>
+      <th style="text-align: left">Valeur défaut</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>key</strong></td>
+      <td style="text-align: left">Valeur de la clef</td>
+      <td style="text-align: left">Oui</td>
+      <td style="text-align: left">aucune</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>operatorCode</strong></td>
+      <td style="text-align: left">Désigne le code opérateur</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>stopPointId</strong></td>
+      <td style="text-align: left">Désigne le numéro de l’arrêt physique ou poteau</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>network</strong></td>
+      <td style="text-align: left">Opérateur de transport</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">Tisséo</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>number</strong></td>
+      <td style="text-align: left">Filtre sur le nb maxi de résultats à retourner</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">Retourne tous les résultats</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>lineId</strong></td>
+      <td style="text-align: left">Filtre les arrêts de la ligne uniquement</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">Retourne tous les résultats</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>displayRealTime</strong></td>
+      <td style="text-align: left">Permet de spécifier si on souhaite des horaires  « théoriques » (0) ou « temps réels » (1)</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">1 : temps réel</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>format</strong></td>
+      <td style="text-align: left">Désigne le format de sortie (xml/json)</td>
+      <td style="text-align: left">Non</td>
+      <td style="text-align: left">xml</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="rgles-de-gestion">Règles de gestion</h2>
+<ul>
+  <li>Le code operateur correspond au N° de l’arrêt (poteau d’arrêt) indiqué par l’opérateur. Si il est fourni, l’opérateur de transport (network doit l’être également)</li>
+  <li>
+    <p>Un des 2 paramètres operatorCode (et network) ou stopPointId doit être fourni.</p>
+  </li>
+  <li>
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: left">Paramètre</th>
+          <th style="text-align: left">Valeurs possibles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: left"><strong>network</strong></td>
+          <td style="text-align: left">Tisséo, ALL</td>
+        </tr>
+        <tr>
+          <td style="text-align: left"><strong>srid</strong></td>
+          <td style="text-align: left">4326, 900913, …</td>
+        </tr>
+        <tr>
+          <td style="text-align: left"><strong>format</strong></td>
+          <td style="text-align: left">json, xml</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="rponse">Réponse</h2>
+<p>### Requête departureBoard en XML</p>
+
+<p>A noter que le contenu de la ligne présente ici est un peu différent du format dans les autres cas, c’est-à-dire des données telles que le mode de transport et l’id de la ligne ne sont pas présentes.
+``` xml</p>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<departures xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expirationdate="2014-05-20 15:04" xsi:nonamespaceschemalocation="http://cimm.tisseo.fr/xsd/DepartureBoard.xsd">
+   <stop id="3377699720883436" operatorcode="3431" name="Herriot" />
+   <stoparea id="1970324837186275" name="Herriot" cityname="TOULOUSE" cityid="1688849860531491" />
+   <departure datetime="2014-05-20 15:05:06" realtime="yes">
+      <line name="Empalot / Gleyze-Vieille" shortname="54" network="Tisséo" color="(255,94,22)" />
+      <destination name="Empalot" cityname="TOULOUSE" />
+   </departure>
+   <departure datetime="2014-05-20 15:35:35" realtime="yes">
+      <line name="Empalot / Gleyze-Vieille" shortname="54" network="Tisséo" color="(255,94,22)" />
+      <destination name="Empalot" cityname="TOULOUSE" />
+   </departure>
+   <departure datetime="2014-05-20 16:06:35" realtime="yes">
+      <line name="Empalot / Gleyze-Vieille" shortname="54" network="Tisséo" color="(255,94,22)" />
+      <destination name="Empalot" cityname="TOULOUSE" />
+   </departure>
+   <departure datetime="2014-05-20 16:30:00" realtime="no">
+      <line name="St Agne - Gare SNCF / Pech David" shortname="115" network="Tisséo" color="(0,198,45)" />
+      <destination name="Pech David" cityname="TOULOUSE" />
+   </departure>
+   <departure datetime="2014-05-20 16:36:33" realtime="no">
+      <line name="Empalot / Gleyze-Vieille" shortname="54" network="Tisséo" color="(255,94,22)" />
+      <destination name="Empalot" cityname="TOULOUSE" />
+   </departure>
+   <departure datetime="2014-05-20 17:03:33" realtime="no">
+      <line name="Empalot / Gleyze-Vieille" shortname="54" network="Tisséo" color="(255,94,22)" />
+      <destination name="Empalot" cityname="TOULOUSE" />
+   </departure>
+   <departure datetime="2014-05-20 17:18:33" realtime="no">
+      <line name="Empalot / Gleyze-Vieille" shortname="54" network="Tisséo" color="(255,94,22)" />
+      <destination name="Empalot" cityname="TOULOUSE" />
+   </departure>
+   <departure datetime="2014-05-20 17:31:33" realtime="no">
+      <line name="Empalot / Gleyze-Vieille" shortname="54" network="Tisséo" color="(255,94,22)" />
+      <destination name="Empalot" cityname="TOULOUSE" />
+   </departure>
+   <departure datetime="2014-05-20 17:35:00" realtime="no">
+      <line name="St Agne - Gare SNCF / Pech David" shortname="115" network="Tisséo" color="(0,198,45)" />
+      <destination name="Pech David" cityname="TOULOUSE" />
+   </departure>
+   <departure datetime="2014-05-20 17:46:33" realtime="no">
+      <line name="Empalot / Gleyze-Vieille" shortname="54" network="Tisséo" color="(255,94,22)" />
+      <destination name="Empalot" cityname="TOULOUSE" />
+   </departure>
+</departures>
+<p><code>
+### Requête departureBoard en JSON
+A noter que le contenu de la ligne présente ici est un peu différent du format dans les autres cas, c'est-à-dire des données telles que le mode de transport et l’id de la ligne ne sont pas présentes.
+</code> json
+{
+  “expirationDate”: “2014-05-20 15:06”,
+  “departures”: {
+    “stop”: {
+      “id”: “3377699720883436”,
+      “operatorCode”: “3431”,
+      “name”: “Herriot”
+    },
+    “stopArea”: {
+      “id”: “1970324837186275”,
+      “name”: “Herriot”,
+      “cityName”: “TOULOUSE”,
+      “cityId”: “1688849860531491”
+    },
+    “departure”: [
+      {
+        “dateTime”: “2014-05-20 15:35:35”,
+        “realTime”: “yes”,
+        “line”: {
+          “name”: “Empalot / Gleyze-Vieille”,
+          “shortName”: “54”,
+          “network”: “Tisséo”,
+          “color”: “(255,94,22)”
+        },
+        “destination”: [
+          {
+            “name”: “Empalot”,
+            “cityName”: “TOULOUSE”
+          }
+        ]
+      },
+      {
+        “dateTime”: “2014-05-20 16:06:35”,
+        “realTime”: “yes”,
+        “line”: {
+          “name”: “Empalot / Gleyze-Vieille”,
+          “shortName”: “54”,
+          “network”: “Tisséo”,
+          “color”: “(255,94,22)”
+        },
+        “destination”: [
+          {
+            “name”: “Empalot”,
+            “cityName”: “TOULOUSE”
+          }
+        ]
+      },
+      {
+        “dateTime”: “2014-05-20 16:30:00”,
+        “realTime”: “no”,
+        “line”: {
+          “name”: “St Agne - Gare SNCF / Pech David”,
+          “shortName”: “115”,
+          “network”: “Tisséo”,
+          “color”: “(0,198,45)”
+        },
+        “destination”: [
+          {
+            “name”: “Pech David”,
+            “cityName”: “TOULOUSE”
+          }
+        ]
+      },
+      {
+        “dateTime”: “2014-05-20 16:36:33”,
+        “realTime”: “no”,
+        “line”: {
+          “name”: “Empalot / Gleyze-Vieille”,
+          “shortName”: “54”,
+          “network”: “Tisséo”,
+          “color”: “(255,94,22)”
+        },
+        “destination”: [
+          {
+            “name”: “Empalot”,
+            “cityName”: “TOULOUSE”
+          }
+        ]
+      },
+      {
+        “dateTime”: “2014-05-20 17:03:33”,
+        “realTime”: “no”,
+        “line”: {
+          “name”: “Empalot / Gleyze-Vieille”,
+          “shortName”: “54”,
+          “network”: “Tisséo”,
+          “color”: “(255,94,22)”
+        },
+        “destination”: [
+          {
+            “name”: “Empalot”,
+            “cityName”: “TOULOUSE”
+          }
+        ]
+      },
+      {
+        “dateTime”: “2014-05-20 17:18:33”,
+        “realTime”: “no”,
+        “line”: {
+          “name”: “Empalot / Gleyze-Vieille”,
+          “shortName”: “54”,
+          “network”: “Tisséo”,
+          “color”: “(255,94,22)”
+        },
+        “destination”: [
+          {
+            “name”: “Empalot”,
+            “cityName”: “TOULOUSE”
+          }
+        ]
+      },
+      {
+        “dateTime”: “2014-05-20 17:31:33”,
+        “realTime”: “no”,
+        “line”: {
+          “name”: “Empalot / Gleyze-Vieille”,
+          “shortName”: “54”,
+          “network”: “Tisséo”,
+          “color”: “(255,94,22)”
+        },
+        “destination”: [
+          {
+            “name”: “Empalot”,
+            “cityName”: “TOULOUSE”
+          }
+        ]
+      },
+      {
+        “dateTime”: “2014-05-20 17:35:00”,
+        “realTime”: “no”,
+        “line”: {
+          “name”: “St Agne - Gare SNCF / Pech David”,
+          “shortName”: “115”,
+          “network”: “Tisséo”,
+          “color”: “(0,198,45)”
+        },
+        “destination”: [
+          {
+            “name”: “Pech David”,
+            “cityName”: “TOULOUSE”
+          }
+        ]
+      },
+      {
+        “dateTime”: “2014-05-20 17:46:33”,
+        “realTime”: “no”,
+        “line”: {
+          “name”: “Empalot / Gleyze-Vieille”,
+          “shortName”: “54”,
+          “network”: “Tisséo”,
+          “color”: “(255,94,22)”
+        },
+        “destination”: [
+          {
+            “name”: “Empalot”,
+            “cityName”: “TOULOUSE”
+          }
+        ]
+      },
+      {
+        “dateTime”: “2014-05-20 18:01:33”,
+        “realTime”: “no”,
+        “line”: {
+          “name”: “Empalot / Gleyze-Vieille”,
+          “shortName”: “54”,
+          “network”: “Tisséo”,
+          “color”: “(255,94,22)”
+        },
+        “destination”: [
+          {
+            “name”: “Empalot”,
+            “cityName”: “TOULOUSE”
+          }
+        ]
+      },
+      {}
+    ]
+  }
+}
+```</p>
+
+<h2 id="exemples-dutilisation">Exemples d’utilisation</h2>
+<ol>
+  <li>
+    <p>Liste des prochains passages du réseau tisséo pour le code opérateur <strong>3431</strong> au format XML 
+<code>http://pt.data.tisseo.fr/departureBoard?&amp;key={your_key}&amp;operatorCode=3431</code></p>
+  </li>
+  <li>
+    <p>Liste des prochains passages pour cet arrêt physique ou poteau <strong>3377699720883436</strong> du réseau tisséo au format
+XML 
+<code>http://pt.data.tisseo.fr/departureBoard?&amp;key={your_key}&amp;stopPointId=3377699720883436</code></p>
+  </li>
+  <li>
+    <p>Liste des prochains passages pour ce code opérateur <strong>3431</strong> du réseau tisséo au format JSON
+<code>http://pt.data.tisseo.fr/departureBoard?&amp;key={your_key}&amp;operatorCode=3431</code></p>
+  </li>
+  <li>
+    <p>Liste des prochains passages pour cet arrêt physique ou poteau <strong>3377699720883436</strong> du réseau tisséo au format JSON</p>
+
+    <p><code>http://pt.data.tisseo.fr/departureBoard?&amp;key={your_key}&amp;stopPointId=3377699720883436&amp;format=json</code></p>
+  </li>
+</ol>
+
+      </div>
+    </div>
+    
+
+
+    </body>
+</html>
