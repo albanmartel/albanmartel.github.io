@@ -12,6 +12,14 @@ Passionné d'informatique, d'opéra et de bonne cuisine
 
 ## Contributions informatiques
 
+
+### 2017
+
+####Module Python d'extraction de répertoires
+
+https://github.com/albanmartel/yijing
+
+
 ### 2016
 
 ####Module Python d'extraction de répertoires
