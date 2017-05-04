@@ -19,7 +19,6 @@ Vous avez une question, le yijing vous apporte un éclairage sur la situation et
 
 https://github.com/albanmartel/yijing
 
-
 ### 2016
 
 #### Module Python d'extraction de répertoires
