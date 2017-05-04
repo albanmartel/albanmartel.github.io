@@ -12,42 +12,42 @@ Passionné d'informatique, d'opéra et de bonne cuisine
 
 ## Contributions informatiques
 
-
 ### 2017
 
-####Module Python d'extraction de répertoires
+#### Module Yijing
+Vous avez une question, le yijing vous apporte un éclairage sur la situation et les évolutions possibles de la demande 
 
 https://github.com/albanmartel/yijing
 
 
 ### 2016
 
-####Module Python d'extraction de répertoires
+#### Module Python d'extraction de répertoires
 
 https://github.com/albanmartel/SimpleDirectoryExplorer
 
 ### 2015
 
-####Script bash d'extraction de sous-titres de vidéos TS
+#### Script bash d'extraction de sous-titres de vidéos TS
 
 https://github.com/albanmartel/ts2srt
 
-####Développement thème WordPress enfant **allpagesinone**: 
+#### Développement thème WordPress enfant **allpagesinone**: 
 
 https://github.com/albanmartel/allpagesinone
 
 
-####Promotion **Agile Toulouse** : 
+#### Promotion **Agile Toulouse** : 
 
 http://agiletoulouse.fr/
 
 https://github.com/albanmartel
 
-###Modèle CV en Latex :
+### Modèle CV en Latex :
 
 https://github.com/albanmartel/Latex_Modele_CV
 
-###Programmation en C du jeu plus ou moins : 
+### Programmation en C du jeu plus ou moins : 
 
 https://github.com/albanmartel/JeuPlusOuMoins
 
