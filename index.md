@@ -4,13 +4,13 @@ Passionné d'informatique, d'opéra et de bonne cuisine
 
 ## Les Profils
 
-[linkedin](https://www.linkedin.com/profile/view?id=337386009) 
-
-[viadeo](http://www.viadeo.com/profile/002xu693plmdnej)
+[linkedin](https://www.linkedin.com/in/alban-martel-649ba694/) 
 
 [meetup](http://www.meetup.com/fr/members/172017332/)
 
 ## Contributions informatiques
+
+### 2018
 
 ### 2017
 
