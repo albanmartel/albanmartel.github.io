@@ -1,6 +1,6 @@
-# Alban MARTEL - Développeur logiciel / Administrateur système 
+# Alban MARTEL - Conseiller Funéraire / Développeur logiciel
 
-Passionné d'informatique, d'opéra et de bonne cuisine
+Passionné par les rapports humains, informatique, d'opéra et de Qi Cong
 
 ## Les Profils
 
